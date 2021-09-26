@@ -6,7 +6,7 @@ import moment from "moment";
 import { Paper, TextField, Button, Grid } from "@material-ui/core";
 import {
     MuiPickersUtilsProvider,
-    KeyboardDatePicker,
+    KeyboardDatePicker
 } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import useStyles from "../styles";
@@ -24,7 +24,7 @@ function Form() {
         phoneNumber: "",
         partyType: "",
         message: "",
-        date: new Date(),
+        date: new Date()
     });
 
     const [alert, setAlert] = useState(false);
@@ -38,7 +38,7 @@ function Form() {
             phoneNumber,
             partyType,
             date,
-            message,
+            message
         } = formData;
 
         if (
@@ -56,7 +56,7 @@ function Form() {
                 from: `${firstName} ${lastName} (tel. ${phoneNumber}) <${email}>`,
                 to: "makaryyrakam@gmail.com",
                 subject: `${partyType} ${moment(date).format("DD/MM/yyyy")}`,
-                text: `${message} `,
+                text: `${message} `
             };
 
             sendMessage(mailData);
@@ -74,7 +74,7 @@ function Form() {
             phoneNumber: "",
             partyType: "",
             message: "",
-            date: new Date(),
+            date: new Date()
         });
     };
 
@@ -95,7 +95,7 @@ function Form() {
                             onChange={(e) =>
                                 setFormData({
                                     ...formData,
-                                    firstName: e.target.value,
+                                    firstName: e.target.value
                                 })
                             }
                         />
@@ -112,7 +112,7 @@ function Form() {
                             onChange={(e) =>
                                 setFormData({
                                     ...formData,
-                                    lastName: e.target.value,
+                                    lastName: e.target.value
                                 })
                             }
                         />
@@ -130,7 +130,7 @@ function Form() {
                             onChange={(e) =>
                                 setFormData({
                                     ...formData,
-                                    email: e.target.value,
+                                    email: e.target.value
                                 })
                             }
                         />
@@ -147,7 +147,7 @@ function Form() {
                             onChange={(e) =>
                                 setFormData({
                                     ...formData,
-                                    phoneNumber: e.target.value,
+                                    phoneNumber: e.target.value
                                 })
                             }
                         />
@@ -164,12 +164,13 @@ function Form() {
                             onChange={(e) =>
                                 setFormData({
                                     ...formData,
-                                    partyType: e.target.value,
+                                    partyType: e.target.value
                                 })
                             }
                         />
                     </Grid>
                     <Grid item lg={6} xs={12}>
+                        {/* ZMIENIC NA JEZYK POLSKI MIESIACE  */}
                         <MuiPickersUtilsProvider utils={MomentUtils}>
                             <KeyboardDatePicker
                                 required
@@ -203,7 +204,7 @@ function Form() {
                             onChange={(e) =>
                                 setFormData({
                                     ...formData,
-                                    message: e.target.value,
+                                    message: e.target.value
                                 })
                             }
                         />

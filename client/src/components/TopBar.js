@@ -9,13 +9,11 @@ import useStyles from "../styles";
 function TopBar() {
     const classes = useStyles();
     return (
-        <AppBar
-            position="relative"
-            className={classes.AppBar}
-            color="transparent"
-        >
+        <AppBar position="relative" className={classes.AppBar}>
             <Toolbar className={classes.Toolbar}>
+                {/* DODAC ZAKLADKI DO GÓRY (o mnie, kontakt, oferta, ) */}
                 <img src={logo} alt="logo" className={classes.logo}></img>
+                <div className={classes.bookmarks}></div>
                 <div className={classes.links}>
                     <Link href="https://www.instagram.com/djkuba.official/">
                         <InstagramIcon className={classes.Icon} />

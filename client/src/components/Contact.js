@@ -1,8 +1,8 @@
 import React from "react";
 import { Paper, Typography } from "@material-ui/core";
 import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
-import CallOutlinedIcon from "@material-ui/icons/CallOutlined";
 import KeyboardOutlinedIcon from "@material-ui/icons/KeyboardOutlined";
+import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
 import useStyle from "../styles";
 
 function Contact() {
@@ -15,7 +15,7 @@ function Contact() {
                     Zapraszam do kontaktu
                 </Typography>
                 <Typography align="center" variant="h6">
-                    <CallOutlinedIcon /> +48 504 005 709
+                    <PhoneIphoneIcon /> 504 005 709
                 </Typography>
                 <Typography align="center" variant="h6">
                     <EmailOutlinedIcon /> kontakt@djkuba.pl

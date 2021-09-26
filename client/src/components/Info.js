@@ -11,9 +11,6 @@ function Info({ image, title }) {
                 <Typography variant="h5" align="center">
                     {title}
                 </Typography>
-                {/* <Typography variant="body2" align="center" gutterBottom>
-                    {title}
-                </Typography> */}
             </CardContent>
             <CardMedia
                 image={image}

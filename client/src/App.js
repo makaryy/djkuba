@@ -4,15 +4,16 @@ import React from "react";
 import Form from "./components/Form";
 import TopBar from "./components/TopBar";
 import About from "./components/About";
+import AboutSite from "./components/AboutSite";
 import Info from "./components/Info";
 import Contact from "./components/Contact";
 import wesele from "./images/wesele.jpg";
 import event from "./images/event.jpg";
 import plener from "./images/plener.jpg";
+import wieczorek from "./images/wieczorek.jpg";
 import osiemnastka from "./images/osiemnastka.jpg";
 import jubileusz from "./images/jubileusz.jpg";
 import bg from "./images/bg.jpg";
-import console from "./images/console.jpg";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
-        fontFamily: ["Roboto", "sans-serif"],
+        fontFamily: ["Roboto", "sans-serif"]
     },
     gridParent: {
-        justifyContent: "center",
-    },
+        justifyContent: "center"
+    }
 }));
 
 function App() {
@@ -42,19 +43,22 @@ function App() {
                             <About />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <Info title={"OSIEMNASTKI"} image={osiemnastka} />
+                            <Info title={"WESELA"} image={wesele} />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <Info title={"WESELA"} image={wesele} />
+                            <Info title={"OSIEMNASTKI"} image={osiemnastka} />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <Info title={"JUBILEUSZE"} image={jubileusz} />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <Info title={"EVENTY"} image={event} />
+                            <Info title={"WIECZORKI"} image={wieczorek} />
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <Info title={"PLENERY"} image={plener} />
+                            <Info title={"IMPREZY PLENEROWE"} image={plener} />
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <Info title={"EVENTY"} image={event} />
                         </Grid>
                         <Grid item xs={12}>
                             <Contact></Contact>
@@ -62,6 +66,9 @@ function App() {
                         <Grid item>
                             <Form />
                         </Grid>
+                        {/* <Grid item>
+                            <AboutSite />
+                        </Grid> */}
                     </Grid>
                 </Container>
             </div>

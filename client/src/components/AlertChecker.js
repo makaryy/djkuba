@@ -6,7 +6,7 @@ function AlertChecker({ alert, formSent }) {
     const classes = useStyles();
     if (alert) {
         return (
-            <Alert severity="info" className={classes.FormAlert}>
+            <Alert severity="error" className={classes.FormAlert}>
                 Musisz uzupełnić cały formularz
             </Alert>
         );
@@ -17,7 +17,7 @@ function AlertChecker({ alert, formSent }) {
             </Alert>
         );
     } else {
-        return false;
+        return null;
     }
 }
 
