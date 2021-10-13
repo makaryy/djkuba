@@ -5,18 +5,18 @@ const theme = createTheme({
         type: "dark",
         background: "#0B0B0B",
         primary: {
-            light: "#a4a4a4",
-            main: "#757575",
-            dark: "#494949",
-            contrastText: "#fff",
+            light: "#484848",
+            main: "#000000",
+            dark: "#000000",
+            contrastText: "#ffffff"
         },
         secondary: {
-            light: "#bc477b",
-            main: "#880e4f",
-            dark: "#560027",
-            contrastText: "#000",
-        },
-    },
+            light: "#ffffff",
+            main: "#fafafa",
+            dark: "#c7c7c7",
+            contrastText: "#000000"
+        }
+    }
 });
 
 export default theme;

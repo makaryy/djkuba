@@ -1,31 +1,52 @@
 import React from "react";
-import { Paper, Typography } from "@material-ui/core";
-import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
-import KeyboardOutlinedIcon from "@material-ui/icons/KeyboardOutlined";
-import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
-import useStyle from "../styles";
+import { useEffect, useState } from "react";
+
+import Form from "./Form";
+
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Grow from "@mui/material/Grow";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import KeyboardAltOutlinedIcon from "@mui/icons-material/KeyboardAltOutlined";
+import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 
 function Contact() {
-    const classes = useStyle();
-
+    const [animate, setAnimate] = useState(false);
+    useEffect(() => {
+        setAnimate(true);
+    }, []);
     return (
-        <div>
-            <Paper className={classes.Paper}>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Zapraszam do kontaktu
-                </Typography>
-                <Typography align="center" variant="h6">
-                    <PhoneIphoneIcon /> 504 005 709
-                </Typography>
-                <Typography align="center" variant="h6">
-                    <EmailOutlinedIcon /> kontakt@djkuba.pl
-                </Typography>
-                <Typography align="center" variant="h6">
-                    <KeyboardOutlinedIcon /> Możesz również zgłosić się poprzez
-                    formularz poniżej
-                </Typography>
-            </Paper>
-        </div>
+        <Grow
+            orientation="horizontal"
+            in={animate}
+            {...(animate ? { timeout: 1000 } : {})}
+        >
+            <div>
+                <Paper
+                    sx={{
+                        padding: "30px",
+                        backgroundColor: "rgba(0,0,0,.7)",
+                        color: "white"
+                    }}
+                >
+                    <Typography variant="h4" align="center" gutterBottom>
+                        Zapraszam do kontaktu
+                    </Typography>
+                    <Typography align="center" variant="h6">
+                        <PhoneIphoneIcon /> 504 005 709
+                    </Typography>
+                    <Typography align="center" variant="h6">
+                        <EmailOutlinedIcon /> kontakt@djkuba.pl
+                    </Typography>
+                    <Typography align="center" variant="h6">
+                        <KeyboardAltOutlinedIcon /> Możesz również zgłosić się
+                        poprzez formularz poniżej
+                    </Typography>
+                </Paper>
+
+                <Form />
+            </div>
+        </Grow>
     );
 }
 

@@ -1,22 +1,26 @@
 import React from "react";
 import { useState } from "react";
 
-import moment from "moment";
+// import moment from "moment";
+import { format } from "date-fns";
 
-import { Paper, TextField, Button, Grid } from "@material-ui/core";
-import {
-    MuiPickersUtilsProvider,
-    KeyboardDatePicker
-} from "@material-ui/pickers";
-import MomentUtils from "@date-io/moment";
-import useStyles from "../styles";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Alert from "@mui/material/Alert";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
+// import {
+//     MuiPickersUtilsProvider,
+//     KeyboardDatePicker
+// } from "@material-ui/pickers";
+// import MomentUtils from "@date-io/moment";
 
 import { sendMessage } from "../api/index";
-import AlertChecker from "./AlertChecker";
 
 function Form() {
-    const classes = useStyles();
-
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -55,10 +59,10 @@ function Form() {
             const mailData = {
                 from: `${firstName} ${lastName} (tel. ${phoneNumber}) <${email}>`,
                 to: "makaryyrakam@gmail.com",
-                subject: `${partyType} ${moment(date).format("DD/MM/yyyy")}`,
+                subject: `${partyType} ${format(date, "dd/MM/yyyy")}`,
                 text: `${message} `
             };
-
+            console.log(mailData);
             sendMessage(mailData);
             setAlert(false);
             setFormSent(true);
@@ -79,13 +83,24 @@ function Form() {
     };
 
     return (
-        <Paper className={classes.Paper}>
-            <AlertChecker alert={alert} formSent={formSent} />
+        <Paper sx={{ padding: "30px", backgroundColor: "rgba(0,0,0,.7)" }}>
+            {/* Checks form status and displays alerts */}
+            {alert ? (
+                <Alert severity="error" sx={{ marginBottom: "25px" }}>
+                    Musisz uzupełnić cały formularz
+                </Alert>
+            ) : formSent ? (
+                <Alert severity="success" sx={{ marginBottom: "25px" }}>
+                    Formularz został wysłany
+                </Alert>
+            ) : null}
+
             <form>
                 <Grid container alignItems="center" spacing={3}>
                     <Grid item xs={12} lg={6}>
                         <TextField
                             required
+                            color="secondary"
                             name="firstName"
                             placeholder="Jan"
                             label="Imię"
@@ -103,6 +118,7 @@ function Form() {
                     <Grid item xs={12} lg={6}>
                         <TextField
                             required
+                            color="secondary"
                             name="lastName"
                             placeholder="Kowalski"
                             label="Nazwisko"
@@ -120,6 +136,7 @@ function Form() {
                     <Grid item lg={6} xs={12}>
                         <TextField
                             required
+                            color="secondary"
                             name="email"
                             type="email"
                             placeholder="adres@poczta.pl"
@@ -138,6 +155,7 @@ function Form() {
                     <Grid item lg={6} xs={12}>
                         <TextField
                             required
+                            color="secondary"
                             name="phoneNumber"
                             placeholder="504005709"
                             label="Nr telefonu"
@@ -155,6 +173,7 @@ function Form() {
                     <Grid item lg={6} xs={12}>
                         <TextField
                             required
+                            color="secondary"
                             name="partyType"
                             placeholder="Wesele/urodziny/jubileusz"
                             label="Rodzaj imprezy"
@@ -171,7 +190,7 @@ function Form() {
                     </Grid>
                     <Grid item lg={6} xs={12}>
                         {/* ZMIENIC NA JEZYK POLSKI MIESIACE  */}
-                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                        {/* <MuiPickersUtilsProvider utils={MomentUtils}>
                             <KeyboardDatePicker
                                 required
                                 autoOk
@@ -184,14 +203,33 @@ function Form() {
                                 onChange={(date) =>
                                     setFormData({ ...formData, date: date })
                                 }
-                                className={classes.datePicker}
                                 fullWidth
                             />
-                        </MuiPickersUtilsProvider>
+                        </MuiPickersUtilsProvider> */}
+                        {/* ZOSTAWIAM STARY NA WYPADEK KOLEJNYCH BLEDOW */}
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <DesktopDatePicker
+                                label="Data imprezy"
+                                value={formData.date}
+                                inputFormat="dd/MM/yyyy"
+                                minDate={new Date("2017-01-01")}
+                                onChange={(date) =>
+                                    setFormData({ ...formData, date: date })
+                                }
+                                renderInput={(params) => (
+                                    <TextField
+                                        color="secondary"
+                                        {...params}
+                                        sx={{ width: "100%" }}
+                                    />
+                                )}
+                            />
+                        </LocalizationProvider>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
                             required
+                            color="secondary"
                             multiline
                             name="message"
                             label="Twoja wiadomość"
@@ -199,7 +237,6 @@ function Form() {
                             fullWidth
                             rows={10}
                             variant="outlined"
-                            className={classes.message}
                             value={formData.message}
                             onChange={(e) =>
                                 setFormData({
@@ -213,7 +250,7 @@ function Form() {
                         <Button
                             variant="outlined"
                             fullWidth
-                            className={classes.sendButton}
+                            color="secondary"
                             onClick={sendForm}
                         >
                             Wyślij
@@ -223,6 +260,7 @@ function Form() {
                         <Button
                             variant="outlined"
                             fullWidth
+                            color="secondary"
                             onClick={clearForm}
                         >
                             Wyczyść
