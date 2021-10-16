@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grow from "@mui/material/Grow";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import theme from "../theme";
 
 import Antek from "../images/Antek.jpg";
 
@@ -12,6 +14,11 @@ function About() {
     useEffect(() => {
         setAnimate(true);
     }, []);
+
+    const overMd = useMediaQuery(theme.breakpoints.up("md"));
+    const componentsDirection = overMd ? "row" : "column";
+    const componentsWidth = overMd ? "50%" : "100%";
+
     return (
         <Grow
             orientation="horizontal"
@@ -21,31 +28,44 @@ function About() {
             <Paper
                 sx={{
                     display: "flex",
-                    flexDirection: "row",
-                    // alignItems: "top",
+                    flexDirection: componentsDirection,
                     backgroundColor: "rgba(0,0,0,.7)"
                 }}
             >
                 <div
                     style={{
                         padding: "30px",
-
-                        width: "50%",
+                        width: componentsWidth,
                         color: "white"
                     }}
                 >
-                    <Typography variant="h2" align="center">
+                    <Typography variant="h2" align="center" gutterBottom>
                         O MNIE
                     </Typography>
-                    <Typography variant="h4" align="center">
-                        Cześć z tej strony DJ KUBA! Prowadzę imprezy od kilku
-                        lat bnbbbbbybry
+                    <Typography variant="h5" align="center">
+                        Cześć. Mam na imię Kuba i chciałbym krótko opowiedzieć o
+                        tym, kim jestem i co sprawia mi w życiu najwięcej
+                        radości. Jestem muzykiem oraz djem z wieloletnim
+                        doświadczeniem. Przygodę z muzyka rozpocząłem w 2010r.
+                        na instrumentach klawiszowych. Ukończyłem szkołę 1
+                        stopnia w wieloma osiągnięciami. Od 2016 roku zajmuję
+                        się dj'ką, Na koncie mam wiele imprez (eventy, imprezy
+                        okolicznościowe, imprezy plenerowe). Jestem zrzeszonym
+                        djem w DJ Promotion. Każde wesele, impreza
+                        okolicznościowa czy firmowa jest szczególna, dlatego
+                        wymaga równie wyjątkowej oprawy. Jedną z
+                        najistotniejszych kwestii takich wydarzeń gwarantującą
+                        dobrą zabawę i zadowolenie gości, jest dobra muzyka i
+                        jeszcze lepszy konferansjer, który rozkręci każde
+                        towarzystwo. Jeśli szukasz profesjonalnej osoby, która
+                        zadba o wyjątkową atmosferę na Twojej imprezie, to
+                        świetnie trafiłeś!
                     </Typography>
                 </div>
                 <div
                     style={{
                         padding: "30px",
-                        width: "50%"
+                        width: componentsWidth
                     }}
                 >
                     <img

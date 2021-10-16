@@ -1,14 +1,21 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import {
+    Tabs,
+    Tab,
+    AppBar,
+    Toolbar,
+    IconButton,
+    Menu,
+    MenuItem,
+    Fade,
+    useMediaQuery
+} from "@mui/material";
+
+import MenuIcon from "@mui/icons-material/Menu";
+
 import theme from "../theme";
 
 // import logo from "../images/logo.png";
@@ -16,7 +23,7 @@ import theme from "../theme";
 import icon2 from "../images/icon2.png";
 
 // MUSI PRZYJAC PARAMETR OD EKRANU + TRZEBA ZROBIC LISTE JAK MNIEJSZY EKRAN
-function Nav() {
+function Nav({ history }) {
     const [value, setValue] = useState("/");
 
     const handleChange = (event, newValue) => {
@@ -25,10 +32,20 @@ function Nav() {
 
     const overMd = useMediaQuery(theme.breakpoints.up("md"));
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleMenuClick = (pageURL) => {
+        history.push(pageURL);
+        setAnchorEl(null);
+    };
+
     return (
         <AppBar
             position="absolute"
-            sx={{ height: "7.5vh", justifyContent: "center" }}
+            sx={{ minHeight: "7.5vh", justifyContent: "center" }}
         >
             <Toolbar
                 sx={{
@@ -82,9 +99,53 @@ function Nav() {
                             />
                         </Tabs>
                     ) : (
-                        <IconButton>
-                            <ListOutlinedIcon sx={{ fontSize: "2.5rem" }} />
-                        </IconButton>
+                        <div>
+                            <IconButton onClick={handleClick}>
+                                <MenuIcon sx={{ fontSize: "2.5rem" }} />
+                            </IconButton>
+
+                            <Menu
+                                id="fade-menu"
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleMenuClick}
+                                TransitionComponent={Fade}
+                                MenuListProps={{
+                                    disablePadding: true,
+                                    sx: {
+                                        width: "100vw",
+                                        backgroundColor: "black"
+                                    }
+                                }}
+                                sx={{
+                                    width: "100vw"
+                                }}
+                            >
+                                <MenuItem onClick={() => handleMenuClick("/")}>
+                                    Strona Główna
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => handleMenuClick("/omnie")}
+                                >
+                                    O mnie
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => handleMenuClick("/oferta")}
+                                >
+                                    Oferta
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => handleMenuClick("/galeria")}
+                                >
+                                    Galeria
+                                </MenuItem>
+                                <MenuItem
+                                    onClick={() => handleMenuClick("/kontakt")}
+                                >
+                                    Kontakt
+                                </MenuItem>
+                            </Menu>
+                        </div>
                     )}
                 </div>
             </Toolbar>
@@ -92,4 +153,4 @@ function Nav() {
     );
 }
 
-export default Nav;
+export default withRouter(Nav);

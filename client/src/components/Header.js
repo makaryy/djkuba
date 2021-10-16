@@ -16,6 +16,7 @@ import theme from "../theme";
 function Header() {
     const overSm = useMediaQuery(theme.breakpoints.up("sm"));
     const textSize = overSm ? "h4" : "h6";
+    const arrowSize = overSm ? "7.5rem" : "3.5rem";
 
     const [animate, setAnimate] = useState(false);
     useEffect(() => {
@@ -46,11 +47,11 @@ function Header() {
                         <img
                             src={logo}
                             alt="DJ KUBA"
-                            style={{ width: "50vw" }}
+                            style={{ width: "70vw" }}
                         ></img>
                         <IconButton sx={{}}>
                             <KeyboardArrowDownIcon
-                                sx={{ fontSize: "8.5rem" }}
+                                sx={{ fontSize: arrowSize }}
                             />
                         </IconButton>
                     </div>
@@ -66,8 +67,7 @@ function Header() {
                         Planujesz zorganizować niezapomnianą imprezę na
                         najwyższym poziomie? Szukasz DJ'a? Zapraszam do
                         współpracy.
-                    </Typography>
-                    <Typography variant={textSize} align="center" color="white">
+                        <br />
                         Pozdrawiam DJ KUBA
                     </Typography>
                 </Paper>

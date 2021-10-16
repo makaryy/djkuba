@@ -26,7 +26,8 @@ function Contact() {
                     sx={{
                         padding: "30px",
                         backgroundColor: "rgba(0,0,0,.7)",
-                        color: "white"
+                        color: "white",
+                        marginBottom: "50px"
                     }}
                 >
                     <Typography variant="h4" align="center" gutterBottom>
