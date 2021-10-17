@@ -1,12 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Link as Scroll } from "react-scroll";
 
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
+import {
+    useMediaQuery,
+    Typography,
+    Paper,
+    Box,
+    Collapse,
+    IconButton
+} from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import logo from "../images/logo.png";
@@ -49,14 +53,17 @@ function Header() {
                             alt="DJ KUBA"
                             style={{ width: "70vw" }}
                         ></img>
-                        <IconButton sx={{}}>
-                            <KeyboardArrowDownIcon
-                                sx={{ fontSize: arrowSize }}
-                            />
-                        </IconButton>
+                        <Scroll to="headerText" smooth={true}>
+                            <IconButton sx={{}}>
+                                <KeyboardArrowDownIcon
+                                    sx={{ fontSize: arrowSize }}
+                                />
+                            </IconButton>
+                        </Scroll>
                     </div>
                 </Collapse>
                 <Paper
+                    id="headerText"
                     sx={{
                         // marginTop: "100px",
                         backgroundColor: "rgba(0,0,0,.7)",
@@ -67,6 +74,23 @@ function Header() {
                         Planujesz zorganizować niezapomnianą imprezę na
                         najwyższym poziomie? Szukasz DJ'a? Zapraszam do
                         współpracy.
+                        <br />
+                        <Link to="/omnie">Tutaj</Link> kilka informacji o mnie.
+                        <br />
+                        <Link to="/oferta">W tym miejscu</Link> możesz sprawdzić
+                        moją ofertę.
+                        <br />
+                        Moje fotki do obejrzenia znajdziesz{" "}
+                        <Link
+                            to="/galeria"
+                            onClick={() => console.log("/galeria")}
+                        >
+                            tutaj
+                        </Link>
+                        .
+                        <br />
+                        Zakładka z możliwościa kontaktu ze mną jest{" "}
+                        <Link to="kontakt">tutaj</Link>.
                         <br />
                         Pozdrawiam DJ KUBA
                     </Typography>

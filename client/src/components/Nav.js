@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 
 import {
@@ -11,23 +11,48 @@ import {
     Menu,
     MenuItem,
     Fade,
-    useMediaQuery
+    useMediaQuery,
+    useScrollTrigger,
+    Slide
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 
 import theme from "../theme";
 
-// import logo from "../images/logo.png";
-// import icon from "../images/icon.png";
 import icon2 from "../images/icon2.png";
 
-// MUSI PRZYJAC PARAMETR OD EKRANU + TRZEBA ZROBIC LISTE JAK MNIEJSZY EKRAN
+function HideOnScroll(props) {
+    const { children, window } = props;
+    // Note that you normally won't need to set the window ref as useScrollTrigger
+    // will default to window.
+    // This is only being set here because the demo is in an iframe.
+    const trigger = useScrollTrigger({
+        target: window ? window() : undefined
+    });
+
+    return (
+        <Slide appear={false} direction="down" in={!trigger}>
+            {children}
+        </Slide>
+    );
+}
+
 function Nav({ history }) {
     const [value, setValue] = useState("/");
 
+    useEffect(() => {
+        valueChecker();
+    });
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
+    };
+
+    const valueChecker = () => {
+        if (value !== history.location.pathname) {
+            setValue(history.location.pathname);
+        }
     };
 
     const overMd = useMediaQuery(theme.breakpoints.up("md"));
@@ -37,119 +62,131 @@ function Nav({ history }) {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleMenuClick = (pageURL) => {
         history.push(pageURL);
         setAnchorEl(null);
     };
 
     return (
-        <AppBar
-            position="absolute"
-            sx={{ minHeight: "7.5vh", justifyContent: "center" }}
-        >
-            <Toolbar
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-between"
-                }}
+        <HideOnScroll>
+            <AppBar
+                position="fixed"
+                sx={{ minHeight: "7.5vh", justifyContent: "center" }}
             >
-                <img src={icon2} alt="logo" style={{ width: "50px" }}></img>
+                <Toolbar
+                    sx={{
+                        justifyContent: "space-between"
+                    }}
+                >
+                    <img src={icon2} alt="logo" style={{ width: "50px" }}></img>
 
-                <div>
-                    {overMd ? (
-                        <Tabs
-                            value={value}
-                            onChange={handleChange}
-                            indicatorColor="secondary"
-                            textColor="inherit"
-                        >
-                            <Tab
-                                label="Strona Główna"
-                                value="/"
-                                component={Link}
-                                to="/"
-                            />
-
-                            <Tab
-                                label="O mnie"
-                                value="/omnie"
-                                component={Link}
-                                to="/omnie"
-                            />
-
-                            <Tab
-                                label="Oferta"
-                                value="/oferta"
-                                component={Link}
-                                to="/oferta"
-                            />
-
-                            <Tab
-                                label="Galeria"
-                                value="/galeria"
-                                component={Link}
-                                to="/galeria"
-                            />
-
-                            <Tab
-                                label="Kontakt"
-                                value="/kontakt"
-                                component={Link}
-                                to="/kontakt"
-                            />
-                        </Tabs>
-                    ) : (
-                        <div>
-                            <IconButton onClick={handleClick}>
-                                <MenuIcon sx={{ fontSize: "2.5rem" }} />
-                            </IconButton>
-
-                            <Menu
-                                id="fade-menu"
-                                anchorEl={anchorEl}
-                                open={open}
-                                onClose={handleMenuClick}
-                                TransitionComponent={Fade}
-                                MenuListProps={{
-                                    disablePadding: true,
-                                    sx: {
-                                        width: "100vw",
-                                        backgroundColor: "black"
-                                    }
-                                }}
-                                sx={{
-                                    width: "100vw"
-                                }}
+                    <div>
+                        {overMd ? (
+                            <Tabs
+                                value={value}
+                                onChange={handleChange}
+                                indicatorColor="secondary"
+                                textColor="inherit"
                             >
-                                <MenuItem onClick={() => handleMenuClick("/")}>
-                                    Strona Główna
-                                </MenuItem>
-                                <MenuItem
-                                    onClick={() => handleMenuClick("/omnie")}
+                                <Tab
+                                    label="Strona Główna"
+                                    value="/"
+                                    component={Link}
+                                    to="/"
+                                />
+
+                                <Tab
+                                    label="O mnie"
+                                    value="/omnie"
+                                    component={Link}
+                                    to="/omnie"
+                                />
+
+                                <Tab
+                                    label="Oferta"
+                                    value="/oferta"
+                                    component={Link}
+                                    to="/oferta"
+                                />
+
+                                <Tab
+                                    label="Galeria"
+                                    value="/galeria"
+                                    component={Link}
+                                    to="/galeria"
+                                />
+
+                                <Tab
+                                    label="Kontakt"
+                                    value="/kontakt"
+                                    component={Link}
+                                    to="/kontakt"
+                                />
+                            </Tabs>
+                        ) : (
+                            <div>
+                                <IconButton onClick={handleClick}>
+                                    <MenuIcon sx={{ fontSize: "2.5rem" }} />
+                                </IconButton>
+
+                                <Menu
+                                    id="fade-menu"
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleMenuClick}
+                                    TransitionComponent={Fade}
+                                    MenuListProps={{
+                                        disablePadding: true,
+                                        sx: {
+                                            width: "100vw",
+                                            backgroundColor: "black"
+                                        }
+                                    }}
+                                    sx={{
+                                        width: "100vw"
+                                    }}
                                 >
-                                    O mnie
-                                </MenuItem>
-                                <MenuItem
-                                    onClick={() => handleMenuClick("/oferta")}
-                                >
-                                    Oferta
-                                </MenuItem>
-                                <MenuItem
-                                    onClick={() => handleMenuClick("/galeria")}
-                                >
-                                    Galeria
-                                </MenuItem>
-                                <MenuItem
-                                    onClick={() => handleMenuClick("/kontakt")}
-                                >
-                                    Kontakt
-                                </MenuItem>
-                            </Menu>
-                        </div>
-                    )}
-                </div>
-            </Toolbar>
-        </AppBar>
+                                    <MenuItem
+                                        onClick={() => handleMenuClick("/")}
+                                    >
+                                        Strona Główna
+                                    </MenuItem>
+                                    <MenuItem
+                                        onClick={() =>
+                                            handleMenuClick("/omnie")
+                                        }
+                                    >
+                                        O mnie
+                                    </MenuItem>
+                                    <MenuItem
+                                        onClick={() =>
+                                            handleMenuClick("/oferta")
+                                        }
+                                    >
+                                        Oferta
+                                    </MenuItem>
+                                    <MenuItem
+                                        onClick={() =>
+                                            handleMenuClick("/galeria")
+                                        }
+                                    >
+                                        Galeria
+                                    </MenuItem>
+                                    <MenuItem
+                                        onClick={() =>
+                                            handleMenuClick("/kontakt")
+                                        }
+                                    >
+                                        Kontakt
+                                    </MenuItem>
+                                </Menu>
+                            </div>
+                        )}
+                    </div>
+                </Toolbar>
+            </AppBar>
+        </HideOnScroll>
     );
 }
 

@@ -1,9 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import Grid from "@mui/material/Grid";
-import Grow from "@mui/material/Grow";
 
-import Info from "./Info";
+import { Grid, Grow } from "@mui/material";
+
+import OfferItem from "./OfferItem";
 
 import wesele from "../images/wesele.jpg";
 import event from "../images/event.jpg";
@@ -27,7 +27,7 @@ function Offer() {
                     {...(animate ? { timeout: 1000 } : {})}
                 >
                     <div>
-                        <Info title={"WESELA"} image={wesele} />
+                        <OfferItem title={"WESELA"} image={wesele} />
                     </div>
                 </Grow>
             </Grid>
@@ -38,7 +38,7 @@ function Offer() {
                     {...(animate ? { timeout: 2000 } : {})}
                 >
                     <div>
-                        <Info title={"OSIEMNASTKI"} image={osiemnastka} />
+                        <OfferItem title={"OSIEMNASTKI"} image={osiemnastka} />
                     </div>
                 </Grow>
             </Grid>
@@ -49,7 +49,7 @@ function Offer() {
                     {...(animate ? { timeout: 3000 } : {})}
                 >
                     <div>
-                        <Info title={"JUBILEUSZE"} image={jubileusz} />
+                        <OfferItem title={"JUBILEUSZE"} image={jubileusz} />
                     </div>
                 </Grow>
             </Grid>
@@ -60,7 +60,7 @@ function Offer() {
                     {...(animate ? { timeout: 4000 } : {})}
                 >
                     <div>
-                        <Info title={"WIECZORKI"} image={wieczorek} />
+                        <OfferItem title={"WIECZORKI"} image={wieczorek} />
                     </div>
                 </Grow>
             </Grid>
@@ -71,7 +71,7 @@ function Offer() {
                     {...(animate ? { timeout: 5000 } : {})}
                 >
                     <div>
-                        <Info title={"IMPREZY PLENEROWE"} image={plener} />
+                        <OfferItem title={"IMPREZY PLENEROWE"} image={plener} />
                     </div>
                 </Grow>
             </Grid>
@@ -82,7 +82,7 @@ function Offer() {
                     {...(animate ? { timeout: 6000 } : {})}
                 >
                     <div>
-                        <Info title={"EVENTY"} image={event} />
+                        <OfferItem title={"EVENTY"} image={event} />
                     </div>
                 </Grow>
             </Grid>

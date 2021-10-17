@@ -1,10 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Grow from "@mui/material/Grow";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { Typography, Paper, Grow, useMediaQuery } from "@mui/material";
+
 import theme from "../theme";
 
 import Antek from "../images/Antek.jpg";
@@ -18,6 +16,7 @@ function About() {
     const overMd = useMediaQuery(theme.breakpoints.up("md"));
     const componentsDirection = overMd ? "row" : "column";
     const componentsWidth = overMd ? "50%" : "100%";
+    const textSize = overMd ? "h5" : "body1";
 
     return (
         <Grow
@@ -29,7 +28,10 @@ function About() {
                 sx={{
                     display: "flex",
                     flexDirection: componentsDirection,
-                    backgroundColor: "rgba(0,0,0,.7)"
+                    backgroundColor: "rgba(0,0,0,.7)",
+                    minHeight: "80vh",
+                    overflow: "hidden",
+                    alignItems: "center"
                 }}
             >
                 <div
@@ -42,14 +44,14 @@ function About() {
                     <Typography variant="h2" align="center" gutterBottom>
                         O MNIE
                     </Typography>
-                    <Typography variant="h5" align="center">
+                    <Typography variant={textSize} align="center">
                         Cześć. Mam na imię Kuba i chciałbym krótko opowiedzieć o
-                        tym, kim jestem i co sprawia mi w życiu najwięcej
+                        tym kim jestem i co sprawia mi w życiu najwięcej
                         radości. Jestem muzykiem oraz djem z wieloletnim
-                        doświadczeniem. Przygodę z muzyka rozpocząłem w 2010r.
+                        doświadczeniem. Przygodę z muzyką rozpocząłem w 2010 r.
                         na instrumentach klawiszowych. Ukończyłem szkołę 1
                         stopnia w wieloma osiągnięciami. Od 2016 roku zajmuję
-                        się dj'ką, Na koncie mam wiele imprez (eventy, imprezy
+                        się dj'ką. Na koncie mam wiele imprez (eventy, imprezy
                         okolicznościowe, imprezy plenerowe). Jestem zrzeszonym
                         djem w DJ Promotion. Każde wesele, impreza
                         okolicznościowa czy firmowa jest szczególna, dlatego
@@ -64,8 +66,8 @@ function About() {
                 </div>
                 <div
                     style={{
-                        padding: "30px",
-                        width: componentsWidth
+                        width: componentsWidth,
+                        maxHeight: "80vh"
                     }}
                 >
                     <img
@@ -73,8 +75,8 @@ function About() {
                         alt="Antek"
                         style={{
                             width: "100%",
-                            borderRadius: "15px",
-                            margin: "0 auto"
+                            borderRadius: "5px",
+                            objectFit: "contain"
                         }}
                     ></img>
                 </div>

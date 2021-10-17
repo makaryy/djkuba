@@ -33,7 +33,7 @@ function App() {
                         paddingTop: "10vh"
                     }}
                 >
-                    <Nav />;
+                    <Nav />
                     <Container maxWidth="lg">
                         <Switch>
                             <Route path="/" exact component={Header} />

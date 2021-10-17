@@ -1,10 +1,8 @@
 import React from "react";
-import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
 
-function Info({ image, title }) {
+import { Typography, Card, CardMedia, CardContent } from "@mui/material";
+
+function OfferItem({ image, title }) {
     return (
         <Card sx={{ backgroundColor: "rgba(0,0,0,.7)" }}>
             <CardContent>
@@ -21,4 +19,4 @@ function Info({ image, title }) {
     );
 }
 
-export default Info;
+export default OfferItem;

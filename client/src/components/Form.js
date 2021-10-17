@@ -4,11 +4,7 @@ import { useState } from "react";
 // import moment from "moment";
 import { format } from "date-fns";
 
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Alert from "@mui/material/Alert";
+import { Paper, Button, Grid, TextField, Alert } from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
@@ -235,7 +231,7 @@ function Form() {
                             label="Twoja wiadomość"
                             placeholder="Opisz jak ma wyglądać impreza"
                             fullWidth
-                            rows={10}
+                            rows={7}
                             variant="outlined"
                             value={formData.message}
                             onChange={(e) =>
