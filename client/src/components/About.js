@@ -10,6 +10,7 @@ import Antek from "../images/Antek.jpg";
 function About() {
     const [animate, setAnimate] = useState(false);
     useEffect(() => {
+        console.log(process.env.REACT_APP_MY_VAR);
         setAnimate(true);
     }, []);
 

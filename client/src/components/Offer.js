@@ -18,74 +18,35 @@ function Offer() {
         setAnimate(true);
     }, []);
 
+    const offerItems = [
+        { title: "WESELA", image: wesele, timeout: 500 },
+        { title: "OSIEMNASTKI", image: osiemnastka, timeout: 1000 },
+        { title: "JUBILEUSZE", image: jubileusz, timeout: 1500 },
+        { title: "WIECZORKI", image: wieczorek, timeout: 2000 },
+        { title: "IMPREZY PLENEROWE", image: plener, timeout: 2500 },
+        { title: "EVENTY", image: event, timeout: 3000 }
+    ];
+
     return (
         <Grid container spacing={8} sx={{ justifyContent: "center" }}>
-            <Grid item xs={12} md={5}>
-                <Grow
-                    in={animate}
-                    style={{ transformOrigin: "0 0 0" }}
-                    {...(animate ? { timeout: 1000 } : {})}
-                >
-                    <div>
-                        <OfferItem title={"WESELA"} image={wesele} />
-                    </div>
-                </Grow>
-            </Grid>
-            <Grid item xs={12} md={5}>
-                <Grow
-                    in={animate}
-                    style={{ transformOrigin: "0 0 0" }}
-                    {...(animate ? { timeout: 2000 } : {})}
-                >
-                    <div>
-                        <OfferItem title={"OSIEMNASTKI"} image={osiemnastka} />
-                    </div>
-                </Grow>
-            </Grid>
-            <Grid item xs={12} md={5}>
-                <Grow
-                    in={animate}
-                    style={{ transformOrigin: "0 0 0" }}
-                    {...(animate ? { timeout: 3000 } : {})}
-                >
-                    <div>
-                        <OfferItem title={"JUBILEUSZE"} image={jubileusz} />
-                    </div>
-                </Grow>
-            </Grid>
-            <Grid item xs={12} md={5}>
-                <Grow
-                    in={animate}
-                    style={{ transformOrigin: "0 0 0" }}
-                    {...(animate ? { timeout: 4000 } : {})}
-                >
-                    <div>
-                        <OfferItem title={"WIECZORKI"} image={wieczorek} />
-                    </div>
-                </Grow>
-            </Grid>
-            <Grid item xs={12} md={5}>
-                <Grow
-                    in={animate}
-                    style={{ transformOrigin: "0 0 0" }}
-                    {...(animate ? { timeout: 5000 } : {})}
-                >
-                    <div>
-                        <OfferItem title={"IMPREZY PLENEROWE"} image={plener} />
-                    </div>
-                </Grow>
-            </Grid>
-            <Grid item xs={12} md={5}>
-                <Grow
-                    in={animate}
-                    style={{ transformOrigin: "0 0 0" }}
-                    {...(animate ? { timeout: 6000 } : {})}
-                >
-                    <div>
-                        <OfferItem title={"EVENTY"} image={event} />
-                    </div>
-                </Grow>
-            </Grid>
+            {offerItems.map((item) => {
+                return (
+                    <Grid item xs={12} md={5} key={item.title}>
+                        <Grow
+                            in={animate}
+                            style={{ transformOrigin: "0 0 0" }}
+                            {...(animate ? { timeout: item.timeout } : {})}
+                        >
+                            <div>
+                                <OfferItem
+                                    title={item.title}
+                                    image={item.image}
+                                />
+                            </div>
+                        </Grow>
+                    </Grid>
+                );
+            })}
         </Grid>
     );
 }
