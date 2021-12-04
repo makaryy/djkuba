@@ -3,6 +3,7 @@ import { useState } from "react";
 
 // import moment from "moment";
 import { format } from "date-fns";
+import plLocale from "date-fns/locale/pl";
 
 import { Paper, Button, Grid, TextField, Alert } from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -203,7 +204,10 @@ function Form() {
                             />
                         </MuiPickersUtilsProvider> */}
                         {/* ZOSTAWIAM STARY NA WYPADEK KOLEJNYCH BLEDOW */}
-                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <LocalizationProvider
+                            dateAdapter={AdapterDateFns}
+                            locale={plLocale}
+                        >
                             <DesktopDatePicker
                                 label="Data imprezy"
                                 value={formData.date}
