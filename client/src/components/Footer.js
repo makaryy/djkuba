@@ -24,7 +24,9 @@ function Footer() {
                 display: "flex",
                 flexDirection: componentsDirection,
                 alignItems: "center",
-                justifyContent: "space-around"
+                justifyContent: "space-around",
+                fontFamily: "Roboto",
+                fontSize: "1.25rem"
             }}
         >
             <Link
@@ -32,22 +34,21 @@ function Footer() {
                 href="https://www.instagram.com/djkuba.official/"
                 color="secondary"
             >
-                <InstagramIcon sx={{ fontSize: "1rem" }} /> djkuba.official
+                <InstagramIcon /> djkuba.official
             </Link>
             <Link
                 underline="none"
                 href="https://www.facebook.com/djkubamusic"
                 color="secondary"
             >
-                <FacebookIcon sx={{ fontSize: "1rem" }} /> djkubamusic
+                <FacebookIcon /> djkubamusic
             </Link>
-            <Typography variant="body2">
-                <EmailOutlinedIcon sx={{ fontSize: "1rem" }} />{" "}
-                kontakt@djkuba.pl
-            </Typography>
-            <Typography>
-                <PhoneIphoneIcon sx={{ fontSize: "1rem" }} /> 504 005 709
-            </Typography>
+            <div>
+                <EmailOutlinedIcon /> kontakt@djkuba.pl
+            </div>
+            <div>
+                <PhoneIphoneIcon /> 504 005 709
+            </div>
         </footer>
     );
 }

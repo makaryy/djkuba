@@ -51,7 +51,7 @@ function About() {
                         radości. Jestem muzykiem oraz djem z wieloletnim
                         doświadczeniem. Przygodę z muzyką rozpocząłem w 2010 r.
                         na instrumentach klawiszowych. Ukończyłem szkołę 1
-                        stopnia w wieloma osiągnięciami. Od 2016 roku zajmuję
+                        stopnia z wieloma osiągnięciami. Od 2016 roku zajmuję
                         się dj'ką. Na koncie mam wiele imprez (eventy, imprezy
                         okolicznościowe, imprezy plenerowe). Jestem zrzeszonym
                         djem w DJ Promotion. Każde wesele, impreza
