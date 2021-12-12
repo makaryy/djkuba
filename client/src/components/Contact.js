@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import Form from "./Form";
 
-import { Typography, Paper, Grow } from "@mui/material";
+import { Typography, Paper, Grow, Box } from "@mui/material";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import KeyboardAltOutlinedIcon from "@mui/icons-material/KeyboardAltOutlined";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
@@ -19,7 +19,7 @@ function Contact() {
             in={animate}
             {...(animate ? { timeout: 1000 } : {})}
         >
-            <div style={{ minHeight: "80vh" }}>
+            <Box sx={{ minHeight: "80vh" }}>
                 <Paper
                     sx={{
                         padding: "20px",
@@ -44,7 +44,7 @@ function Contact() {
                 </Paper>
 
                 <Form />
-            </div>
+            </Box>
         </Grow>
     );
 }

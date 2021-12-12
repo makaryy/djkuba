@@ -4,7 +4,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import { Link, Typography, useMediaQuery } from "@mui/material";
+import { Box, Link, useMediaQuery } from "@mui/material";
 
 import theme from "../theme";
 
@@ -20,7 +20,6 @@ function Footer() {
                 width: "100%",
                 minHeight: "7.5vh",
                 marginTop: "2.5vh",
-                // paddingTop: "20px",
                 display: "flex",
                 flexDirection: componentsDirection,
                 alignItems: "center",
@@ -43,12 +42,12 @@ function Footer() {
             >
                 <FacebookIcon /> djkubamusic
             </Link>
-            <div>
+            <Box>
                 <EmailOutlinedIcon /> kontakt@djkuba.pl
-            </div>
-            <div>
+            </Box>
+            <Box>
                 <PhoneIphoneIcon /> 504 005 709
-            </div>
+            </Box>
         </footer>
     );
 }

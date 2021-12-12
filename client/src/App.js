@@ -12,7 +12,6 @@ import Header from "./components/Header";
 import About from "./components/About";
 import Nav from "./components/Nav";
 import Gallery from "./components/Gallery";
-
 import bg from "./images/bg.jpg";
 import Offer from "./components/Offer";
 import Footer from "./components/Footer";
@@ -28,8 +27,7 @@ function App() {
                         backgroundImage: `url(${bg})`,
                         backgroundSize: "cover",
                         backgroundRepeat: "no-repeat",
-                        // fontFamily: ["Roboto", "sans-serif"],
-                        fontFamily: ["Scheherazade New", "serif"],
+                        fontFamily: ["Roboto", "sans-serif"],
                         paddingTop: "10vh"
                     }}
                 >

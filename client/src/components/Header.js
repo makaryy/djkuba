@@ -9,9 +9,13 @@ import {
     Paper,
     Box,
     Collapse,
-    IconButton
+    IconButton,
+    List,
+    ListItemButton,
+    ListItem
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import DoubleArrowOutlinedIcon from "@mui/icons-material/DoubleArrowOutlined";
 
 import logo from "../images/logo.png";
 
@@ -40,8 +44,8 @@ function Header() {
                 }}
             >
                 <Collapse orientation="horizontal" in={animate} timeout={1000}>
-                    <div
-                        style={{
+                    <Box
+                        sx={{
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
@@ -60,39 +64,86 @@ function Header() {
                                 />
                             </IconButton>
                         </Scroll>
-                    </div>
+                    </Box>
                 </Collapse>
                 <Paper
                     id="headerText"
                     sx={{
-                        // marginTop: "100px",
                         backgroundColor: "rgba(0,0,0,.7)",
                         padding: "30px"
                     }}
                 >
                     <Typography variant={textSize} align="center" color="white">
                         Planujesz zorganizować niezapomnianą imprezę na
-                        najwyższym poziomie? Szukasz DJ'a? Zapraszam do
-                        współpracy.
-                        <br />
-                        <Link to="/omnie">Tutaj</Link> kilka informacji o mnie.
-                        <br />
-                        <Link to="/oferta">W tym miejscu</Link> możesz sprawdzić
-                        moją ofertę.
-                        <br />
-                        Moje fotki do obejrzenia znajdziesz{" "}
-                        <Link
-                            to="/galeria"
-                            onClick={() => console.log("/galeria")}
-                        >
-                            tutaj
-                        </Link>
-                        .
-                        <br />
-                        Zakładka z możliwościa kontaktu ze mną jest{" "}
-                        <Link to="kontakt">tutaj</Link>.
-                        <br />
-                        Pozdrawiam DJ KUBA
+                        najwyższym poziomie? Szukasz DJ'a? <br />
+                        Zapraszam do współpracy.
+                        <List>
+                            <ListItem disablePadding>
+                                <ListItemButton
+                                    sx={{ justifyContent: "center" }}
+                                >
+                                    <Link
+                                        to="/omnie"
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "white"
+                                        }}
+                                    >
+                                        <DoubleArrowOutlinedIcon />
+                                        &nbsp;O mnie
+                                    </Link>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton
+                                    sx={{ justifyContent: "center" }}
+                                >
+                                    <Link
+                                        to="/oferta"
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "white"
+                                        }}
+                                    >
+                                        <DoubleArrowOutlinedIcon />
+                                        &nbsp; Oferta
+                                    </Link>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton
+                                    sx={{ justifyContent: "center" }}
+                                >
+                                    <Link
+                                        to="/galeria"
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "white"
+                                        }}
+                                    >
+                                        <DoubleArrowOutlinedIcon />
+                                        &nbsp; Galeria
+                                    </Link>
+                                </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                                <ListItemButton
+                                    sx={{ justifyContent: "center" }}
+                                >
+                                    <Link
+                                        to="/kontakt"
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "white"
+                                        }}
+                                    >
+                                        <DoubleArrowOutlinedIcon />
+                                        &nbsp; Kontakt
+                                    </Link>
+                                </ListItemButton>
+                            </ListItem>
+                        </List>
+                        Pozdrawiam DJ KUBA.
                     </Typography>
                 </Paper>
             </Box>

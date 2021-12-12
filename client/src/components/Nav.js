@@ -13,7 +13,8 @@ import {
     Fade,
     useMediaQuery,
     useScrollTrigger,
-    Slide
+    Slide,
+    Box
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -24,9 +25,6 @@ import icon2 from "../images/icon2.png";
 
 function HideOnScroll(props) {
     const { children, window } = props;
-    // Note that you normally won't need to set the window ref as useScrollTrigger
-    // will default to window.
-    // This is only being set here because the demo is in an iframe.
     const trigger = useScrollTrigger({
         target: window ? window() : undefined
     });
@@ -68,6 +66,8 @@ function Nav({ history }) {
         setAnchorEl(null);
     };
 
+    const galleryChecker = /galeria/;
+
     return (
         <HideOnScroll>
             <AppBar
@@ -81,10 +81,14 @@ function Nav({ history }) {
                 >
                     <img src={icon2} alt="logo" style={{ width: "50px" }}></img>
 
-                    <div>
+                    <Box>
                         {overMd ? (
                             <Tabs
-                                value={value}
+                                value={
+                                    galleryChecker.test(value)
+                                        ? "/galeria"
+                                        : value
+                                }
                                 onChange={handleChange}
                                 indicatorColor="secondary"
                                 textColor="inherit"
@@ -125,7 +129,7 @@ function Nav({ history }) {
                                 />
                             </Tabs>
                         ) : (
-                            <div>
+                            <Box>
                                 <IconButton onClick={handleClick}>
                                     <MenuIcon sx={{ fontSize: "2.5rem" }} />
                                 </IconButton>
@@ -181,9 +185,9 @@ function Nav({ history }) {
                                         Kontakt
                                     </MenuItem>
                                 </Menu>
-                            </div>
+                            </Box>
                         )}
-                    </div>
+                    </Box>
                 </Toolbar>
             </AppBar>
         </HideOnScroll>

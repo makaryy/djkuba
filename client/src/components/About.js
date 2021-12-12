@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-import { Typography, Paper, Grow, useMediaQuery } from "@mui/material";
+import { Typography, Paper, Grow, useMediaQuery, Box } from "@mui/material";
 
 import theme from "../theme";
 
@@ -10,7 +10,6 @@ import Antek from "../images/Antek.jpg";
 function About() {
     const [animate, setAnimate] = useState(false);
     useEffect(() => {
-        console.log(process.env.REACT_APP_MY_VAR);
         setAnimate(true);
     }, []);
 
@@ -35,8 +34,8 @@ function About() {
                     alignItems: "center"
                 }}
             >
-                <div
-                    style={{
+                <Box
+                    sx={{
                         padding: "30px",
                         width: componentsWidth,
                         color: "white"
@@ -64,9 +63,9 @@ function About() {
                         zadba o wyjątkową atmosferę na Twojej imprezie, to
                         świetnie trafiłeś!
                     </Typography>
-                </div>
-                <div
-                    style={{
+                </Box>
+                <Box
+                    sx={{
                         width: componentsWidth,
                         maxHeight: "80vh"
                     }}
@@ -80,7 +79,7 @@ function About() {
                             objectFit: "contain"
                         }}
                     ></img>
-                </div>
+                </Box>
             </Paper>
         </Grow>
     );

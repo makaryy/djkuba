@@ -1,19 +1,13 @@
 import React from "react";
 import { useState } from "react";
 
-// import moment from "moment";
 import { format } from "date-fns";
 import plLocale from "date-fns/locale/pl";
 
 import { Paper, Button, Grid, TextField, Alert } from "@mui/material";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
-// import {
-//     MuiPickersUtilsProvider,
-//     KeyboardDatePicker
-// } from "@material-ui/pickers";
-// import MomentUtils from "@date-io/moment";
+import DatePicker from "@mui/lab/DatePicker";
 
 import { sendMessage } from "../api/index";
 
@@ -55,11 +49,10 @@ function Form() {
         } else {
             const mailData = {
                 from: `${firstName} ${lastName} (tel. ${phoneNumber}) <${email}>`,
-                to: "makaryyrakam@gmail.com",
+                to: "kontakt@djkuba.pl",
                 subject: `${partyType} ${format(date, "dd/MM/yyyy")}`,
                 text: `${message} `
             };
-            console.log(mailData);
             sendMessage(mailData);
             setAlert(false);
             setFormSent(true);
@@ -81,7 +74,6 @@ function Form() {
 
     return (
         <Paper sx={{ padding: "30px", backgroundColor: "rgba(0,0,0,.7)" }}>
-            {/* Checks form status and displays alerts */}
             {alert ? (
                 <Alert severity="error" sx={{ marginBottom: "25px" }}>
                     Musisz uzupełnić cały formularz
@@ -186,33 +178,15 @@ function Form() {
                         />
                     </Grid>
                     <Grid item lg={6} xs={12}>
-                        {/* ZMIENIC NA JEZYK POLSKI MIESIACE  */}
-                        {/* <MuiPickersUtilsProvider utils={MomentUtils}>
-                            <KeyboardDatePicker
-                                required
-                                autoOk
-                                variant="inline"
-                                inputVariant="outlined"
-                                label="Data imprezy"
-                                format="DD/MM/yyyy"
-                                value={formData.date}
-                                disableToolbar
-                                onChange={(date) =>
-                                    setFormData({ ...formData, date: date })
-                                }
-                                fullWidth
-                            />
-                        </MuiPickersUtilsProvider> */}
-                        {/* ZOSTAWIAM STARY NA WYPADEK KOLEJNYCH BLEDOW */}
                         <LocalizationProvider
                             dateAdapter={AdapterDateFns}
                             locale={plLocale}
                         >
-                            <DesktopDatePicker
+                            <DatePicker
                                 label="Data imprezy"
                                 value={formData.date}
                                 inputFormat="dd/MM/yyyy"
-                                minDate={new Date("2017-01-01")}
+                                minDate={new Date()}
                                 onChange={(date) =>
                                     setFormData({ ...formData, date: date })
                                 }
@@ -220,7 +194,7 @@ function Form() {
                                     <TextField
                                         color="secondary"
                                         {...params}
-                                        sx={{ width: "100%" }}
+                                        fullWidth
                                     />
                                 )}
                             />
