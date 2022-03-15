@@ -24,11 +24,13 @@ function App() {
                 <Box
                     sx={{
                         minHeight: "100vh",
-                        backgroundImage: `url(${bg})`,
-                        backgroundSize: "cover",
-                        backgroundRepeat: "no-repeat",
+                        background:
+                            "linear-gradient(to bottom right, rgb(55,55,55), rgb(22,22,22))",
+                        // backgroundImage: `url(${bg})`,
+                        // backgroundSize: "cover",
+                        // backgroundRepeat: "no-repeat",
                         fontFamily: ["Roboto", "sans-serif"],
-                        paddingTop: "10vh"
+                        paddingTop: "10vh",
                     }}
                 >
                     <Nav />

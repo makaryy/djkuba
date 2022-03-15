@@ -209,7 +209,7 @@ function Form() {
                             label="Twoja wiadomość"
                             placeholder="Opisz jak ma wyglądać impreza"
                             fullWidth
-                            rows={7}
+                            rows={5}
                             variant="outlined"
                             value={formData.message}
                             onChange={(e) =>

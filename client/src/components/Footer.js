@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -25,7 +26,7 @@ function Footer() {
                 alignItems: "center",
                 justifyContent: "space-around",
                 fontFamily: "Roboto",
-                fontSize: "1.25rem"
+                fontSize: "1.25rem",
             }}
         >
             <Link
@@ -35,16 +36,12 @@ function Footer() {
             >
                 <InstagramIcon /> djkuba.official
             </Link>
-            <Link
-                underline="none"
-                href="https://www.facebook.com/djkubamusic"
-                color="secondary"
-            >
+            <Link underline="none" href="https://www.facebook.com/djkubamusic" color="secondary">
                 <FacebookIcon /> djkubamusic
             </Link>
-            <Box>
+            <RouterLink to="/kontakt" style={{ color: "white", textDecoration: "none" }}>
                 <EmailOutlinedIcon /> kontakt@djkuba.pl
-            </Box>
+            </RouterLink>
             <Box>
                 <PhoneIphoneIcon /> 504 005 709
             </Box>
