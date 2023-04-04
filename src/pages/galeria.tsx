@@ -13,7 +13,7 @@ interface Props {
     images: IImage[];
 }
 
-const galeria = ({ images }: Props) => {
+const Galeria = ({ images }: Props) => {
     const [displayedImage, setDisplayedImage] = useState<IImage | null>(null);
     const router = useRouter();
     const { image } = router.query;
@@ -24,7 +24,7 @@ const galeria = ({ images }: Props) => {
     useEffect(() => {
         const search = images.find((img) => getIndex(img.name) === Number(image));
         search ? setDisplayedImage(search) : setDisplayedImage(null);
-    }, [image]);
+    }, [image, images]);
 
     const getIndex = (name: string) => {
         const [id] = name.split(".");
@@ -38,9 +38,8 @@ const galeria = ({ images }: Props) => {
                 sx={{
                     padding: "30px",
                     minHeight: "85vh",
-                    backgroundColor: "rgba(0,0,0,.5)",
-                }}
-            >
+                    backgroundColor: "rgba(0,0,0,.5)"
+                }}>
                 <ImageList variant="standard" cols={colNumber} gap={24} sx={{ overflow: "hidden" }}>
                     {images.map((image, index) => (
                         <Grow key={`image${index}`} in={true} {...(true ? { timeout: 1500 } : {})}>
@@ -51,10 +50,9 @@ const galeria = ({ images }: Props) => {
                                             sx={{
                                                 transition: "transform 200ms",
                                                 ":hover": {
-                                                    transform: "scale(1.05)",
-                                                },
-                                            }}
-                                        >
+                                                    transform: "scale(1.05)"
+                                                }
+                                            }}>
                                             <Image
                                                 src={image.src}
                                                 alt={image.name}
@@ -99,4 +97,4 @@ export async function getStaticProps() {
     return { props: { images } };
 }
 
-export default galeria;
+export default Galeria;
