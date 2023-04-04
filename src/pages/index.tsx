@@ -34,18 +34,16 @@ export default function Home() {
                     justifyContent: "space-around",
                     alignItems: "stretch",
                     padding: "30px",
-                    width: "100%",
-                }}
-            >
+                    width: "100%"
+                }}>
                 <Box
                     sx={{
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
-                        height: "50vh",
-                    }}
-                >
+                        height: "50vh"
+                    }}>
                     <Collapse orientation="horizontal" in={animate} timeout={1000}>
                         <Image
                             src={logoSrc}
@@ -55,15 +53,14 @@ export default function Home() {
                             priority
                             style={{
                                 width: overSm ? "70vw" : "100vw",
-                                height: "auto",
-                            }}
-                        ></Image>
+                                height: "auto"
+                            }}></Image>
                     </Collapse>
                     <Scroll to="headerText" smooth={true}>
                         <IconButton sx={{}}>
                             <KeyboardArrowDown
                                 sx={{
-                                    fontSize: arrowSize,
+                                    fontSize: arrowSize
                                 }}
                             />
                         </IconButton>
@@ -76,11 +73,10 @@ export default function Home() {
                         backdropFilter: "blur(5px)",
                         padding: "30px",
                         display: "flex",
-                        flexDirection: "column",
-                    }}
-                >
+                        flexDirection: "column"
+                    }}>
                     <Typography variant={textSize} align="center" color="white">
-                        Planujesz zorganizować niezapomnianą imprezę na najwyższym poziomie? Szukasz DJ'a? <br />
+                        Planujesz zorganizować niezapomnianą imprezę na najwyższym poziomie? Szukasz DJ&apos;a? <br />
                         Zapraszam do współpracy.
                     </Typography>
                     <Box
@@ -91,15 +87,13 @@ export default function Home() {
                             gridTemplateColumns: "1fr 1fr",
                             rowGap: "2rem",
                             margin: "30px",
-                            gap: "1.5rem",
-                        }}
-                    >
+                            gap: "1.5rem"
+                        }}>
                         <Link
                             href="/omnie"
                             style={{
-                                textDecoration: "none",
-                            }}
-                        >
+                                textDecoration: "none"
+                            }}>
                             <Paper
                                 elevation={7}
                                 sx={{
@@ -107,10 +101,9 @@ export default function Home() {
                                     textAlign: "center",
                                     padding: "1.5rem",
                                     ":hover": {
-                                        background: "rgba(255,255,255,0.2)",
-                                    },
-                                }}
-                            >
+                                        background: "rgba(255,255,255,0.2)"
+                                    }
+                                }}>
                                 <BadgeOutlined sx={{ fontSize: "3.5rem" }} />
                                 <br /> O mnie
                             </Paper>
@@ -118,9 +111,8 @@ export default function Home() {
                         <Link
                             href="/oferta"
                             style={{
-                                textDecoration: "none",
-                            }}
-                        >
+                                textDecoration: "none"
+                            }}>
                             <Paper
                                 elevation={7}
                                 sx={{
@@ -128,10 +120,9 @@ export default function Home() {
                                     textAlign: "center",
                                     padding: "1.5rem",
                                     ":hover": {
-                                        background: "rgba(255,255,255,0.2)",
-                                    },
-                                }}
-                            >
+                                        background: "rgba(255,255,255,0.2)"
+                                    }
+                                }}>
                                 <DescriptionOutlined sx={{ fontSize: "3.5rem" }} />
                                 <br /> Oferta
                             </Paper>
@@ -140,9 +131,8 @@ export default function Home() {
                         <Link
                             href="/galeria"
                             style={{
-                                textDecoration: "none",
-                            }}
-                        >
+                                textDecoration: "none"
+                            }}>
                             <Paper
                                 elevation={7}
                                 sx={{
@@ -150,10 +140,9 @@ export default function Home() {
                                     textAlign: "center",
                                     padding: "1.5rem",
                                     ":hover": {
-                                        background: "rgba(255,255,255,0.2)",
-                                    },
-                                }}
-                            >
+                                        background: "rgba(255,255,255,0.2)"
+                                    }
+                                }}>
                                 <CollectionsOutlined sx={{ fontSize: "3.5rem" }} />
                                 <br /> Galeria
                             </Paper>
@@ -162,9 +151,8 @@ export default function Home() {
                         <Link
                             href="/kontakt"
                             style={{
-                                textDecoration: "none",
-                            }}
-                        >
+                                textDecoration: "none"
+                            }}>
                             <Paper
                                 elevation={7}
                                 sx={{
@@ -172,10 +160,9 @@ export default function Home() {
                                     textAlign: "center",
                                     padding: "1.5rem",
                                     ":hover": {
-                                        background: "rgba(255,255,255,0.2)",
-                                    },
-                                }}
-                            >
+                                        background: "rgba(255,255,255,0.2)"
+                                    }
+                                }}>
                                 <AlternateEmailOutlined sx={{ fontSize: "3.5rem" }} />
                                 <br /> Kontakt
                             </Paper>
