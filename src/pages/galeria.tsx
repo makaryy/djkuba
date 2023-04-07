@@ -8,6 +8,7 @@ import { IImage } from "@/types";
 import DisplayedImage from "@/components/DisplayedImage";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 interface Props {
     images: IImage[];
@@ -34,12 +35,22 @@ const Galeria = ({ images }: Props) => {
 
     return (
         <>
+            <Head>
+                <title>Galeria - DJ Kuba</title>
+                <meta name="description" content="Galeria zdjęć - imprezy, wesela i osiemnastki czyli DJ KUBA w akcji." />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+                <link rel="manifest" href="/site.webmanifest" />
+            </Head>
             <Box
                 sx={{
                     padding: "30px",
                     minHeight: "85vh",
-                    backgroundColor: "rgba(0,0,0,.5)"
-                }}>
+                    backgroundColor: "rgba(0,0,0,.5)",
+                }}
+            >
                 <ImageList variant="standard" cols={colNumber} gap={24} sx={{ overflow: "hidden" }}>
                     {images.map((image, index) => (
                         <Grow key={`image${index}`} in={true} {...(true ? { timeout: 1500 } : {})}>
@@ -50,9 +61,10 @@ const Galeria = ({ images }: Props) => {
                                             sx={{
                                                 transition: "transform 200ms",
                                                 ":hover": {
-                                                    transform: "scale(1.05)"
-                                                }
-                                            }}>
+                                                    transform: "scale(1.05)",
+                                                },
+                                            }}
+                                        >
                                             <Image
                                                 src={image.src}
                                                 alt={image.name}

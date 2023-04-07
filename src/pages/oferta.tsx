@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Grid, Grow, Box } from "@mui/material";
 
 import OfferItem from "@/components/OfferItem";
+import Head from "next/head";
 
 const weseleSrc = "/wesele.jpg";
 const eventSrc = "/event.jpg";
@@ -28,27 +29,41 @@ function Offer() {
     ];
 
     return (
-        <Box
-            sx={{
-                padding: "30px",
-                minHeight: "85vh",
-                backgroundColor: "rgba(0,0,0,.5)",
-            }}
-        >
-            <Grid container spacing={8} sx={{ justifyContent: "center", padding: "30px" }}>
-                {offerItems.map((item) => {
-                    return (
-                        <Grid item xs={12} md={5} key={item.title}>
-                            <Grow in={animate} style={{ transformOrigin: "0 0 0" }} {...(animate ? { timeout: item.timeout } : {})}>
-                                <div>
-                                    <OfferItem title={item.title} image={item.image} />
-                                </div>
-                            </Grow>
-                        </Grid>
-                    );
-                })}
-            </Grid>
-        </Box>
+        <>
+            <Head>
+                <title>Oferta - DJ Kuba</title>
+                <meta
+                    name="description"
+                    content="Zobacz ofertę: wesele, osiemnastka, jubileusz, plener, event, wieczorek i wszystko co zechcesz."
+                />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+                <link rel="manifest" href="/site.webmanifest" />
+            </Head>
+            <Box
+                sx={{
+                    padding: "30px",
+                    minHeight: "85vh",
+                    backgroundColor: "rgba(0,0,0,.5)",
+                }}
+            >
+                <Grid container spacing={8} sx={{ justifyContent: "center", padding: "30px" }}>
+                    {offerItems.map((item) => {
+                        return (
+                            <Grid item xs={12} md={5} key={item.title}>
+                                <Grow in={animate} style={{ transformOrigin: "0 0 0" }} {...(animate ? { timeout: item.timeout } : {})}>
+                                    <div>
+                                        <OfferItem title={item.title} image={item.image} />
+                                    </div>
+                                </Grow>
+                            </Grid>
+                        );
+                    })}
+                </Grid>
+            </Box>
+        </>
     );
 }
 
