@@ -1,37 +1,19 @@
-import theme from "@/theme";
-import { Box, ImageList, Grow, ImageListItem, useMediaQuery } from "@mui/material";
-import Image from "next/image";
-import fs from "fs";
-import path from "path";
-import { useEffect, useState } from "react";
-import { IImage } from "@/types";
-import DisplayedImage from "@/components/DisplayedImage";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Head from "next/head";
+import Image from "next/image";
+import { IImage } from "@/utils/types";
+import cloudinary from "@/utils/cloudinary";
+import theme from "@/utils/theme";
+import { Box, ImageList, Grow, ImageListItem, useMediaQuery } from "@mui/material";
 
 interface Props {
     images: IImage[];
 }
 
 const Galeria = ({ images }: Props) => {
-    const [displayedImage, setDisplayedImage] = useState<IImage | null>(null);
-    const router = useRouter();
-    const { image } = router.query;
     const overMd = useMediaQuery(theme.breakpoints.up("md"));
     const overSm = useMediaQuery(theme.breakpoints.up("sm"));
     const colNumber = overMd ? 3 : overSm ? 2 : 1;
-
-    useEffect(() => {
-        const search = images.find((img) => getIndex(img.name) === Number(image));
-        search ? setDisplayedImage(search) : setDisplayedImage(null);
-    }, [image, images]);
-
-    const getIndex = (name: string) => {
-        const [id] = name.split(".");
-        const index = Number(id);
-        return index;
-    };
 
     return (
         <>
@@ -44,6 +26,7 @@ const Galeria = ({ images }: Props) => {
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
                 <link rel="manifest" href="/site.webmanifest" />
             </Head>
+
             <Box
                 sx={{
                     padding: "30px",
@@ -55,7 +38,7 @@ const Galeria = ({ images }: Props) => {
                     {images.map((image, index) => (
                         <Grow key={`image${index}`} in={true} {...(true ? { timeout: 1500 } : {})}>
                             {overSm ? (
-                                <Link href={`?image=${getIndex(image.name)}`} shallow={true}>
+                                <Link href={`/galeria/${image.id}`} shallow={true}>
                                     <div>
                                         <ImageListItem
                                             sx={{
@@ -67,7 +50,7 @@ const Galeria = ({ images }: Props) => {
                                         >
                                             <Image
                                                 src={image.src}
-                                                alt={image.name}
+                                                alt={image.alt}
                                                 loading="lazy"
                                                 width={600}
                                                 height={400}
@@ -80,7 +63,7 @@ const Galeria = ({ images }: Props) => {
                                 <ImageListItem>
                                     <Image
                                         src={image.src}
-                                        alt={image.name}
+                                        alt={image.alt}
                                         loading="lazy"
                                         width={400}
                                         height={300}
@@ -92,18 +75,16 @@ const Galeria = ({ images }: Props) => {
                     ))}
                 </ImageList>
             </Box>
-            {displayedImage ? <DisplayedImage src={displayedImage.src} name={displayedImage.name} index={0} limit={images.length} /> : null}
         </>
     );
 };
 
 export async function getStaticProps() {
-    const files = fs.readdirSync(path.join(process.cwd(), "public", "gallery"), { encoding: "utf-8" });
-    const images = files.map((file) => {
-        const [id] = file.split(".");
-        const name = file;
-        const src = `/gallery/${name}`;
-        return { name, src, id };
+    const results = await cloudinary.v2.search.expression("folder=djkuba").sort_by("public_id", "asc").max_results(400).execute();
+
+    const images: IImage[] = results.resources.map((image: any) => {
+        const [id] = image.filename.split("_");
+        return { src: image.secure_url, id: Number(id), alt: image.public_id };
     });
 
     return { props: { images } };

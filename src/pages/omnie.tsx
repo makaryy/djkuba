@@ -1,8 +1,7 @@
-import { Typography, Grow, useMediaQuery, Box } from "@mui/material";
-import Image from "next/image";
-
-import theme from "../theme";
 import Head from "next/head";
+import Image from "next/image";
+import theme from "../utils/theme";
+import { Typography, Grow, useMediaQuery, Box } from "@mui/material";
 
 const aboutSrc = "/kuba-about.jpg";
 

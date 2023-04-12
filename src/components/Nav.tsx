@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Tabs, Tab, AppBar, Toolbar, IconButton, Menu, MenuItem, Fade, useMediaQuery, useScrollTrigger, Slide, Box } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import theme from "../theme";
+import theme from "@/utils/theme";
 
 const iconSrc = "/icon2-no-bg.png";
 
@@ -27,11 +27,13 @@ function Nav() {
     const [value, setValue] = useState("/");
 
     const { pathname, push } = useRouter();
+    const galleryRegex = /^\/galeria\/\[id\]$/;
+    const display = galleryRegex.test(pathname) ? "none" : "flex";
 
     // FIX THAT
     useEffect(() => {
         valueChecker();
-    });
+    }, [pathname, value]);
 
     const handleChange = (event: SyntheticEvent<Element, Event>, newValue: string) => {
         setValue(newValue);
@@ -60,7 +62,7 @@ function Nav() {
 
     return (
         // <HideOnScroll>
-        <AppBar position="static" sx={{ justifyContent: "center" }}>
+        <AppBar position="static" sx={{ display, justifyContent: "center" }}>
             <Toolbar
                 sx={{
                     justifyContent: "space-between",

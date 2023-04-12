@@ -1,10 +1,7 @@
-import React from "react";
-import { useEffect, useState } from "react";
-
-import { Grid, Grow, Box } from "@mui/material";
-
-import OfferItem from "@/components/OfferItem";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import OfferItem from "@/components/OfferItem";
+import { Grid, Grow, Box } from "@mui/material";
 
 const weseleSrc = "/wesele.jpg";
 const eventSrc = "/event.jpg";

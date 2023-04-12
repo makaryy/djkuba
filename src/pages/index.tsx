@@ -1,9 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Link as Scroll } from "react-scroll";
-import theme from "@/theme";
+import theme from "@/utils/theme";
 import { useMediaQuery, Box, Collapse, IconButton, Paper, Typography } from "@mui/material";
 import { KeyboardArrowDown, BadgeOutlined, AlternateEmailOutlined, CollectionsOutlined, DescriptionOutlined } from "@mui/icons-material/";
 
@@ -32,6 +32,7 @@ export default function Home() {
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
                 <link rel="manifest" href="/site.webmanifest" />
             </Head>
+
             <Box
                 sx={{
                     height: "200vh",

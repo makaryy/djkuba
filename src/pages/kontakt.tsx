@@ -1,10 +1,8 @@
+import Head from "next/head";
 import { useEffect, useState } from "react";
-
 import Form from "@/components/Form";
-
 import { Typography, Paper, Grow, Box } from "@mui/material";
 import { EmailOutlined, KeyboardAltOutlined, PhoneIphone } from "@mui/icons-material/";
-import Head from "next/head";
 
 function Contact() {
     const [animate, setAnimate] = useState(false);

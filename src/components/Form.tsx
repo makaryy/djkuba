@@ -7,7 +7,7 @@ import plLocale from "date-fns/locale/pl";
 import { Paper, Button, Grid, TextField, Alert } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
-import { IFormData, IResponse } from "@/types";
+import { IFormData, IResponse } from "@/utils/types";
 
 const initialState: IFormData = {
     firstName: "",

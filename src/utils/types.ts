@@ -14,6 +14,12 @@ export interface IResponse {
 }
 
 export interface IImage {
-    name: string;
+    id: number;
     src: string;
+    alt: string;
+}
+
+export interface ILastPhotoContext {
+    lastViewedPhoto: null | number;
+    setLastViewedPhoto: (id: number) => void;
 }

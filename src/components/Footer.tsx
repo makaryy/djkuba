@@ -1,17 +1,20 @@
-import React from "react";
 import Link from "next/link";
-
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import PhoneIphoneIcon from "@mui/icons-material/PhoneIphone";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import { Box, Link as MuiLink, useMediaQuery } from "@mui/material";
 
-import theme from "../theme";
+import theme from "../utils/theme";
+import { useRouter } from "next/router";
 
 function Footer() {
     const overMd = useMediaQuery(theme.breakpoints.up("md"));
     const componentsDirection = overMd ? "row" : "column";
+
+    const { pathname } = useRouter();
+    const galleryRegex = /^\/galeria\/\[id\]$/;
+    const display = galleryRegex.test(pathname) ? "none" : "flex";
 
     return (
         <footer
@@ -19,7 +22,7 @@ function Footer() {
                 position: "static",
                 backgroundColor: "black",
                 width: "100%",
-                display: "flex",
+                display,
                 flexDirection: componentsDirection,
                 alignItems: "center",
                 justifyContent: "space-around",
