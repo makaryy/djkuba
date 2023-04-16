@@ -37,7 +37,6 @@ const Galeria = ({ images }: Props) => {
                 <ImageList variant="standard" cols={colNumber} gap={24} sx={{ overflow: "hidden" }}>
                     {images.map((image, index) => (
                         <Grow key={`image${index}`} in={true} {...(true ? { timeout: 1500 } : {})}>
-                            {/* {overSm ? ( */}
                             <Link href={`/galeria/${image.id}`} shallow={true}>
                                 <ImageListItem
                                     sx={
@@ -61,18 +60,6 @@ const Galeria = ({ images }: Props) => {
                                     />
                                 </ImageListItem>
                             </Link>
-                            {/*  ) : (
-                                 <ImageListItem>
-                                     <Image
-                                         src={image.src}
-                                         alt={image.alt}
-                                         loading="lazy"
-                                         width={400}
-                                         height={300}
-                                         style={{ width: "100%", height: "auto", objectFit: "cover" }}
-                                     />
-                                 </ImageListItem>
-                             )} */}
                         </Grow>
                     ))}
                 </ImageList>
