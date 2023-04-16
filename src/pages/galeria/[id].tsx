@@ -26,6 +26,8 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
         nextPhoto,
         overMd,
         overSm,
+        isLoaded,
+        setIsLoaded,
     } = useDisplayedImage(currentPhoto, lastId);
 
     return (
@@ -47,77 +49,32 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
                 }}
                 open={true}
             >
-                <AnimatePresence mode="wait" initial={false}>
-                    <Box
-                        onTouchStart={handleTouchStart}
-                        onTouchMove={handleTouchMove}
-                        onTouchEnd={handleTouchEnd}
-                        sx={{
-                            width: "max-content",
-                            height: "max-content",
-                            maxHeight: "100vh",
-                            maxWidth: "100vw",
-                            position: "relative",
-                            aspectRatio: currentPhoto.aspectRatio,
-                        }}
-                    >
-                        <motion.div
-                            key={`closeButton${currentPhoto.id}`}
-                            transition={{ duration: 0.75, delay: 0.25 }}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                        >
-                            <Link href="/galeria" scroll={false}>
-                                <Button
-                                    sx={{
-                                        zIndex: 10,
-                                        position: "absolute",
-                                        left: "10px",
-                                        top: "20px",
-                                        boxShadow: "0px 0px 2px 0px #acacac",
-                                        backgroundColor: "black",
-                                    }}
-                                    onClick={handleClose}
-                                >
-                                    <Close sx={{ color: "white", fontSize: "1.5rem" }} />
-                                </Button>
-                            </Link>
-                        </motion.div>
-                        {overSm && (
-                            <motion.div
-                                key={`backButton${currentPhoto.id}`}
-                                transition={{ duration: 0.75, delay: 0.25 }}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                            >
-                                <Button
-                                    sx={{
-                                        zIndex: 10,
-                                        position: "absolute",
-                                        left: "10px",
-                                        top: "50%",
-                                        boxShadow: "0px 0px 2px 0px #acacac",
-                                        backgroundColor: "black",
-                                    }}
-                                    onClick={handleBack}
-                                >
-                                    <ArrowBack sx={{ color: "white", fontSize: "1.5rem" }} />
-                                </Button>
-                            </motion.div>
-                        )}
+                <Box
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    sx={{
+                        width: "max-content",
+                        maxHeight: "100vh",
+                        maxWidth: "100vw",
+                        position: "relative",
+                        aspectRatio: currentPhoto.aspectRatio,
+                    }}
+                >
+                    <AnimatePresence mode="popLayout" initial={false}>
                         <motion.div
                             key={`photo${currentPhoto.id}`}
-                            initial={{ x: lastViewedPhoto && lastViewedPhoto > currentPhoto.id ? -600 : 600, opacity: 0 }}
+                            initial={{ x: lastViewedPhoto && lastViewedPhoto > currentPhoto.id ? -1000 : 1000, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
-                            exit={{ x: nextPhoto && nextPhoto < currentPhoto.id ? 600 : -600, opacity: 0 }}
+                            exit={{ x: nextPhoto && nextPhoto < currentPhoto.id ? 1000 : -1000, opacity: 0 }}
                         >
                             <Image
                                 src={currentPhoto.src}
                                 alt={currentPhoto.alt}
                                 width={currentPhoto.width}
                                 height={currentPhoto.height}
+                                priority={true}
+                                onLoadingComplete={() => setIsLoaded(true)}
                                 style={
                                     overMd
                                         ? {
@@ -137,18 +94,49 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
                                 }
                             />
                         </motion.div>
-                        {overSm && (
-                            <motion.div
-                                key={`forwardButton${currentPhoto.id}`}
-                                transition={{ duration: 0.75, delay: 0.25 }}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                            >
-                                {" "}
+                    </AnimatePresence>
+                    {isLoaded && (
+                        <Box
+                            sx={{
+                                inset: 0,
+                                aspectRatio: currentPhoto.aspectRatio,
+                                position: "absolute",
+                                zIndex: 10,
+                                width: "100%",
+                                height: "100%",
+                            }}
+                        >
+                            <Link href="/galeria" scroll={false} shallow={true}>
                                 <Button
                                     sx={{
-                                        zIndex: 10,
+                                        position: "absolute",
+                                        left: "10px",
+                                        top: "20px",
+                                        boxShadow: "0px 0px 2px 0px #acacac",
+                                        backgroundColor: "black",
+                                    }}
+                                    onClick={handleClose}
+                                >
+                                    <Close sx={{ color: "white", fontSize: "1.5rem" }} />
+                                </Button>
+                            </Link>
+                            {overSm && (
+                                <Button
+                                    sx={{
+                                        position: "absolute",
+                                        left: "10px",
+                                        top: "50%",
+                                        boxShadow: "0px 0px 2px 0px #acacac",
+                                        backgroundColor: "black",
+                                    }}
+                                    onClick={handleBack}
+                                >
+                                    <ArrowBack sx={{ color: "white", fontSize: "1.5rem" }} />
+                                </Button>
+                            )}
+                            {overSm && (
+                                <Button
+                                    sx={{
                                         position: "absolute",
                                         right: "10px",
                                         top: "50%",
@@ -159,10 +147,10 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
                                 >
                                     <ArrowForward sx={{ color: "white", fontSize: "1.5rem" }} />
                                 </Button>
-                            </motion.div>
-                        )}
-                    </Box>
-                </AnimatePresence>
+                            )}
+                        </Box>
+                    )}
+                </Box>
             </Backdrop>
         </>
     );

@@ -68,5 +68,5 @@ export interface ICloudinarySearchResult {
 
 export interface ILastPhotoContext {
     lastViewedPhoto: null | number;
-    setLastViewedPhoto: (id: number) => void;
+    setLastViewedPhoto: (id: number | null) => void;
 }

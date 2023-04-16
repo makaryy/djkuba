@@ -5,6 +5,9 @@ import { ICloudinarySearchResult, IImage } from "@/utils/types";
 import cloudinary from "@/utils/cloudinary";
 import theme from "@/utils/theme";
 import { Box, ImageList, Grow, ImageListItem, useMediaQuery } from "@mui/material";
+import { LastPhotoContext } from "@/utils/context";
+import { useContext, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 
 interface Props {
     images: IImage[];
@@ -14,6 +17,17 @@ const Galeria = ({ images }: Props) => {
     const overMd = useMediaQuery(theme.breakpoints.up("md"));
     const overSm = useMediaQuery(theme.breakpoints.up("sm"));
     const colNumber = overMd ? 3 : overSm ? 2 : 1;
+    const { lastViewedPhoto, setLastViewedPhoto } = useContext(LastPhotoContext);
+    const lastViewedPhotoRef = useRef<HTMLAnchorElement>(null);
+    const router = useRouter();
+    const { id } = router.query;
+
+    useEffect(() => {
+        if (lastViewedPhoto && !id) {
+            lastViewedPhotoRef.current?.scrollIntoView({ block: "center" });
+            setLastViewedPhoto(null);
+        }
+    }, [id, lastViewedPhoto, setLastViewedPhoto]);
 
     return (
         <>
@@ -37,7 +51,12 @@ const Galeria = ({ images }: Props) => {
                 <ImageList variant="standard" cols={colNumber} gap={24} sx={{ overflow: "hidden" }}>
                     {images.map((image, index) => (
                         <Grow key={`image${index}`} in={true} {...(true ? { timeout: 1500 } : {})}>
-                            <Link href={`/galeria/${image.id}`} shallow={true}>
+                            <Link
+                                as={`/galeria/${image.id}`}
+                                shallow={true}
+                                href={`/galeria/${image.id}`}
+                                ref={image.id === lastViewedPhoto ? lastViewedPhotoRef : null}
+                            >
                                 <ImageListItem
                                     sx={
                                         overSm
