@@ -1,35 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { GetStaticProps } from "next";
-import { useContext, useState } from "react";
-import { LastPhotoContext } from "@/utils/context";
 import cloudinary from "@/utils/cloudinary";
-import { IImage } from "@/utils/types";
-import { Backdrop, Box, Button } from "@mui/material";
+import { ICloudinarySearchResult, IImage } from "@/utils/types";
+import { Backdrop, Box, Button, useMediaQuery } from "@mui/material";
 import { ArrowForward, ArrowBack, Close } from "@mui/icons-material/";
 import { motion, AnimatePresence } from "framer-motion";
+import { useDisplayedImage } from "@/utils/hooks";
 
 interface Props {
     currentPhoto: IImage;
-    lastPhotoId: number;
+    lastId: number;
 }
 
-const DisplayedImage = ({ currentPhoto, lastPhotoId }: Props) => {
-    const { lastViewedPhoto, setLastViewedPhoto } = useContext(LastPhotoContext);
-    const [nextPhoto, setNextPhoto] = useState<null | number>(null);
-    const { push } = useRouter();
+const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
+    const {
+        handleBack,
+        handleClose,
+        handleForward,
+        handleTouchEnd,
+        handleTouchMove,
+        handleTouchStart,
+        lastViewedPhoto,
+        nextPhoto,
+        overMd,
+        overSm,
+        push,
+    } = useDisplayedImage(currentPhoto, lastId);
 
-    const back = (id: number, lastId: number) => {
-        const newId = id - 1 <= 0 ? lastId : id - 1;
-        return newId;
-    };
-
-    const forward = (id: number, lastId: number) => {
-        const newId = id + 1 > lastId ? 1 : id + 1;
-        return newId;
-    };
     return (
         <>
             <Head>
@@ -41,107 +40,151 @@ const DisplayedImage = ({ currentPhoto, lastPhotoId }: Props) => {
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
                 <link rel="manifest" href="/site.webmanifest" />
             </Head>
-            <Box>
-                <Backdrop
-                    sx={{
-                        backgroundColor: "rgba(0,0,0, .8)",
-                        zIndex: (theme) => theme.zIndex.drawer + 1,
-                    }}
-                    open={true}
-                >
-                    <Link href="/galeria" scroll={false}>
-                        <Button
+            <Backdrop
+                role="dialog"
+                sx={{
+                    backgroundColor: "rgba(0,0,0, .8)",
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={true}
+            >
+                <AnimatePresence mode="wait" initial={false}>
+                    <motion.div key={`box${currentPhoto.id}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                        <Box
+                            onTouchStart={handleTouchStart}
+                            onTouchMove={handleTouchMove}
+                            onTouchEnd={handleTouchEnd}
                             sx={{
-                                position: "absolute",
-                                left: "10px",
-                                top: "20px",
-                                boxShadow: "0px 0px 2px 0px #acacac",
-                                backgroundColor: "black",
-                            }}
-                            onClick={() => {
-                                setLastViewedPhoto(currentPhoto.id);
+                                width: "max-content",
+                                height: "max-content",
+                                maxHeight: "100vh",
+                                maxWidth: "100vw",
+                                position: "relative",
+                                aspectRatio: currentPhoto.aspectRatio,
                             }}
                         >
-                            <Close sx={{ color: "white", fontSize: "1.5rem" }} />
-                        </Button>
-                    </Link>
-                    <Button
-                        sx={{
-                            position: "absolute",
-                            left: "10px",
-                            boxShadow: "0px 0px 2px 0px #acacac",
-                            backgroundColor: "black",
-                        }}
-                        onClick={() => {
-                            setLastViewedPhoto(currentPhoto.id);
-                            setNextPhoto(back(currentPhoto.id, lastPhotoId));
-                            push(`/galeria/${back(currentPhoto.id, lastPhotoId)}`);
-                        }}
-                    >
-                        <ArrowBack sx={{ color: "white", fontSize: "1.5rem" }} />
-                    </Button>
-                    <AnimatePresence mode="wait" initial={false}>
-                        <motion.div
-                            key={`photo${currentPhoto.id}`}
-                            initial={{ x: lastViewedPhoto && lastViewedPhoto > currentPhoto.id ? -300 : 300, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            exit={{ x: nextPhoto && nextPhoto < currentPhoto.id ? 300 : -300, opacity: 0 }}
-                        >
-                            <Image
-                                src={currentPhoto.src}
-                                alt={currentPhoto.alt}
-                                width={2100}
-                                height={1400}
-                                style={{ maxHeight: "90vh", maxWidth: "80vw", height: "auto", width: "auto" }}
-                            />
-                        </motion.div>
-                    </AnimatePresence>
-                    <Button
-                        sx={{
-                            position: "absolute",
-                            right: "10px",
-                            backgroundColor: "black",
-                            boxShadow: "0px 0px 2px 0px #acacac",
-                        }}
-                        onClick={() => {
-                            setLastViewedPhoto(currentPhoto.id);
-                            setNextPhoto(forward(currentPhoto.id, lastPhotoId));
-                            push(`/galeria/${forward(currentPhoto.id, lastPhotoId)}`);
-                        }}
-                    >
-                        <ArrowForward sx={{ color: "white", fontSize: "1.5rem" }} />
-                    </Button>
-                </Backdrop>
-            </Box>
+                            <Link href="/galeria" scroll={false}>
+                                <Button
+                                    sx={{
+                                        zIndex: 10,
+                                        position: "absolute",
+                                        left: "10px",
+                                        top: "20px",
+                                        boxShadow: "0px 0px 2px 0px #acacac",
+                                        backgroundColor: "black",
+                                    }}
+                                    onClick={handleClose}
+                                >
+                                    <Close sx={{ color: "white", fontSize: "1.5rem" }} />
+                                </Button>
+                            </Link>
+                            {overSm && (
+                                <Button
+                                    sx={{
+                                        zIndex: 10,
+                                        position: "absolute",
+                                        left: "10px",
+                                        top: "50%",
+                                        boxShadow: "0px 0px 2px 0px #acacac",
+                                        backgroundColor: "black",
+                                    }}
+                                    onClick={handleBack}
+                                >
+                                    <ArrowBack sx={{ color: "white", fontSize: "1.5rem" }} />
+                                </Button>
+                            )}
+                            <motion.div
+                                key={`photo${currentPhoto.id}`}
+                                initial={{ x: lastViewedPhoto && lastViewedPhoto > currentPhoto.id ? -600 : 600, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                exit={{ x: nextPhoto && nextPhoto < currentPhoto.id ? 600 : -600, opacity: 0 }}
+                            >
+                                <Image
+                                    src={currentPhoto.src}
+                                    alt={currentPhoto.alt}
+                                    width={currentPhoto.width}
+                                    height={currentPhoto.height}
+                                    style={
+                                        overMd
+                                            ? {
+                                                  height: "100%",
+                                                  width: "auto",
+                                                  maxHeight: "100vh",
+                                                  maxWidth: "100vw",
+                                                  aspectRatio: currentPhoto.aspectRatio,
+                                              }
+                                            : {
+                                                  width: "100%",
+                                                  height: "auto",
+                                                  maxHeight: "100vh",
+                                                  maxWidth: "100vw",
+                                                  aspectRatio: currentPhoto.aspectRatio,
+                                              }
+                                    }
+                                />
+                            </motion.div>
+                            {overSm && (
+                                <Button
+                                    sx={{
+                                        zIndex: 10,
+                                        position: "absolute",
+                                        right: "10px",
+                                        top: "50%",
+                                        backgroundColor: "black",
+                                        boxShadow: "0px 0px 2px 0px #acacac",
+                                    }}
+                                    onClick={handleForward}
+                                >
+                                    <ArrowForward sx={{ color: "white", fontSize: "1.5rem" }} />
+                                </Button>
+                            )}
+                        </Box>
+                    </motion.div>
+                </AnimatePresence>
+            </Backdrop>
         </>
     );
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-    const results = await cloudinary.v2.search.expression("folder=djkuba").sort_by("public_id", "asc").max_results(400).execute();
+    const results: ICloudinarySearchResult = await cloudinary.v2.search
+        .expression("folder=djkuba")
+        .sort_by("public_id", "asc")
+        .max_results(400)
+        .execute();
 
-    const images: IImage[] = results.resources.map((image: any) => {
-        const [id] = image.filename.split("_");
-        return { src: image.secure_url, id: Number(id), alt: image.public_id };
+    const images: IImage[] = results.resources.map((image, index) => {
+        return {
+            src: image.secure_url,
+            id: index + 1,
+            alt: `DJ KUBA galeria - zdjęcie ${image.filename}`,
+            width: image.width,
+            height: image.height,
+            aspectRatio: `${image.aspect_ratio} / 1`,
+        };
     });
 
     const currentPhoto = images.find((img) => img.id === Number(context.params?.id));
-    const lastPhotoId = images.length - 1;
+
+    const lastId = images[images.length - 1].id;
 
     return {
         props: {
             currentPhoto,
-            lastPhotoId,
+            lastId,
         },
     };
 };
 
 export async function getStaticPaths() {
-    const results = await cloudinary.v2.search.expression("folder=djkuba").sort_by("public_id", "asc").max_results(400).execute();
+    const results: ICloudinarySearchResult = await cloudinary.v2.search
+        .expression("folder=djkuba")
+        .sort_by("public_id", "asc")
+        .max_results(400)
+        .execute();
 
-    const paths = results.resources.map((image: any) => {
-        const [name] = image.filename.split("_");
-        const id = Number(name).toString();
+    const paths = results.resources.map((image, index) => {
+        const id = (index + 1).toString();
         return { params: { id } };
     });
 

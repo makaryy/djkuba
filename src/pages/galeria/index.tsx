@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
-import { IImage } from "@/utils/types";
+import { ICloudinarySearchResult, IImage } from "@/utils/types";
 import cloudinary from "@/utils/cloudinary";
 import theme from "@/utils/theme";
 import { Box, ImageList, Grow, ImageListItem, useMediaQuery } from "@mui/material";
@@ -37,40 +37,42 @@ const Galeria = ({ images }: Props) => {
                 <ImageList variant="standard" cols={colNumber} gap={24} sx={{ overflow: "hidden" }}>
                     {images.map((image, index) => (
                         <Grow key={`image${index}`} in={true} {...(true ? { timeout: 1500 } : {})}>
-                            {overSm ? (
-                                <Link href={`/galeria/${image.id}`} shallow={true}>
-                                    <div>
-                                        <ImageListItem
-                                            sx={{
-                                                transition: "transform 200ms",
-                                                ":hover": {
-                                                    transform: "scale(1.05)",
-                                                },
-                                            }}
-                                        >
-                                            <Image
-                                                src={image.src}
-                                                alt={image.alt}
-                                                loading="lazy"
-                                                width={600}
-                                                height={400}
-                                                style={{ width: "100%", aspectRatio: "3/2", height: "auto", objectFit: "cover" }}
-                                            />
-                                        </ImageListItem>
-                                    </div>
-                                </Link>
-                            ) : (
-                                <ImageListItem>
+                            {/* {overSm ? ( */}
+                            <Link href={`/galeria/${image.id}`} shallow={true}>
+                                <ImageListItem
+                                    sx={
+                                        overSm
+                                            ? {
+                                                  transition: "transform 200ms",
+                                                  ":hover": {
+                                                      transform: "scale(1.05)",
+                                                  },
+                                              }
+                                            : {}
+                                    }
+                                >
                                     <Image
                                         src={image.src}
                                         alt={image.alt}
                                         loading="lazy"
-                                        width={400}
-                                        height={300}
-                                        style={{ width: "100%", objectFit: "cover" }}
+                                        width={600}
+                                        height={400}
+                                        style={{ width: "100%", aspectRatio: "3/2", height: "auto", objectFit: "cover" }}
                                     />
                                 </ImageListItem>
-                            )}
+                            </Link>
+                            {/*  ) : (
+                                 <ImageListItem>
+                                     <Image
+                                         src={image.src}
+                                         alt={image.alt}
+                                         loading="lazy"
+                                         width={400}
+                                         height={300}
+                                         style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                                     />
+                                 </ImageListItem>
+                             )} */}
                         </Grow>
                     ))}
                 </ImageList>
@@ -80,11 +82,14 @@ const Galeria = ({ images }: Props) => {
 };
 
 export async function getStaticProps() {
-    const results = await cloudinary.v2.search.expression("folder=djkuba").sort_by("public_id", "asc").max_results(400).execute();
+    const results: ICloudinarySearchResult = await cloudinary.v2.search
+        .expression("folder=djkuba")
+        .sort_by("public_id", "asc")
+        .max_results(400)
+        .execute();
 
-    const images: IImage[] = results.resources.map((image: any) => {
-        const [id] = image.filename.split("_");
-        return { src: image.secure_url, id: Number(id), alt: image.public_id };
+    const images: IImage[] = results.resources.map((image: any, index: number) => {
+        return { src: image.secure_url, id: index + 1, alt: image.public_id };
     });
 
     return { props: { images } };
