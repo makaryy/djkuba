@@ -49,7 +49,13 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
                 open={true}
             >
                 <AnimatePresence mode="wait" initial={false}>
-                    <motion.div key={`box${currentPhoto.id}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                    <motion.div
+                        key={`box${currentPhoto.id}`}
+                        transition={{ duration: 1 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
                         <Box
                             onTouchStart={handleTouchStart}
                             onTouchMove={handleTouchMove}
