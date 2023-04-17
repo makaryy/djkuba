@@ -1,6 +1,6 @@
 import { useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
-import { useContext, useState, TouchEvent, useEffect } from "react";
+import { useContext, useState, TouchEvent } from "react";
 import { LastPhotoContext } from "./context";
 import theme from "./theme";
 import { IImage } from "./types";
@@ -10,7 +10,6 @@ export const useDisplayedImage = (currentPhoto: IImage, lastId: number) => {
     const [nextPhoto, setNextPhoto] = useState<null | number>(null);
     const [touchStartPoint, setTouchStartPoint] = useState<number | null>(null);
     const [touchMovePoint, setTouchMovePoint] = useState<number | null>(null);
-    const [isLoaded, setIsLoaded] = useState(false);
     const overMd = useMediaQuery(theme.breakpoints.up("md"));
     const overSm = useMediaQuery(theme.breakpoints.up("sm"));
     const overLg = useMediaQuery(theme.breakpoints.up("lg"));
@@ -64,7 +63,5 @@ export const useDisplayedImage = (currentPhoto: IImage, lastId: number) => {
         overLg,
         overMd,
         overSm,
-        isLoaded,
-        setIsLoaded,
     };
 };

@@ -4,7 +4,7 @@ import Head from "next/head";
 import { GetStaticProps } from "next";
 import cloudinary from "@/utils/cloudinary";
 import { ICloudinarySearchResult, IImage } from "@/utils/types";
-import { Backdrop, Box, Button, useMediaQuery } from "@mui/material";
+import { Backdrop, Box, Button } from "@mui/material";
 import { ArrowForward, ArrowBack, Close } from "@mui/icons-material/";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDisplayedImage } from "@/utils/hooks";
@@ -26,8 +26,6 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
         nextPhoto,
         overMd,
         overSm,
-        isLoaded,
-        setIsLoaded,
     } = useDisplayedImage(currentPhoto, lastId);
 
     return (
@@ -54,11 +52,13 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
                     onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
                     sx={{
-                        width: "max-content",
                         maxHeight: "100vh",
                         maxWidth: "100vw",
-                        position: "relative",
                         aspectRatio: currentPhoto.aspectRatio,
+                        position: "absolute",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
                     }}
                 >
                     <AnimatePresence mode="popLayout" initial={false}>
@@ -74,7 +74,6 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
                                 width={currentPhoto.width}
                                 height={currentPhoto.height}
                                 priority={true}
-                                onLoadingComplete={() => setIsLoaded(true)}
                                 style={
                                     overMd
                                         ? {
@@ -95,60 +94,46 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
                             />
                         </motion.div>
                     </AnimatePresence>
-                    {isLoaded && (
-                        <Box
+
+                    <Link href="/galeria" scroll={false} shallow={true}>
+                        <Button
                             sx={{
-                                inset: 0,
-                                aspectRatio: currentPhoto.aspectRatio,
                                 position: "absolute",
-                                zIndex: 10,
-                                width: "100%",
-                                height: "100%",
+                                left: overSm ? "1rem" : ".75rem",
+                                top: overSm ? "1rem" : ".75rem",
+                                boxShadow: "0px 0px 2px 0px #acacac",
+                                backgroundColor: "black",
                             }}
+                            onClick={handleClose}
                         >
-                            <Link href="/galeria" scroll={false} shallow={true}>
-                                <Button
-                                    sx={{
-                                        position: "absolute",
-                                        left: "10px",
-                                        top: "20px",
-                                        boxShadow: "0px 0px 2px 0px #acacac",
-                                        backgroundColor: "black",
-                                    }}
-                                    onClick={handleClose}
-                                >
-                                    <Close sx={{ color: "white", fontSize: "1.5rem" }} />
-                                </Button>
-                            </Link>
-                            {overSm && (
-                                <Button
-                                    sx={{
-                                        position: "absolute",
-                                        left: "10px",
-                                        top: "50%",
-                                        boxShadow: "0px 0px 2px 0px #acacac",
-                                        backgroundColor: "black",
-                                    }}
-                                    onClick={handleBack}
-                                >
-                                    <ArrowBack sx={{ color: "white", fontSize: "1.5rem" }} />
-                                </Button>
-                            )}
-                            {overSm && (
-                                <Button
-                                    sx={{
-                                        position: "absolute",
-                                        right: "10px",
-                                        top: "50%",
-                                        backgroundColor: "black",
-                                        boxShadow: "0px 0px 2px 0px #acacac",
-                                    }}
-                                    onClick={handleForward}
-                                >
-                                    <ArrowForward sx={{ color: "white", fontSize: "1.5rem" }} />
-                                </Button>
-                            )}
-                        </Box>
+                            <Close sx={{ color: "white", fontSize: overSm ? "1.5rem" : "1rem" }} />
+                        </Button>
+                    </Link>
+                    {overSm && (
+                        <Button
+                            sx={{
+                                position: "absolute",
+                                left: "1rem",
+                                boxShadow: "0px 0px 2px 0px #acacac",
+                                backgroundColor: "black",
+                            }}
+                            onClick={handleBack}
+                        >
+                            <ArrowBack sx={{ color: "white", fontSize: "1.5rem" }} />
+                        </Button>
+                    )}
+                    {overSm && (
+                        <Button
+                            sx={{
+                                position: "absolute",
+                                right: "1rem",
+                                backgroundColor: "black",
+                                boxShadow: "0px 0px 2px 0px #acacac",
+                            }}
+                            onClick={handleForward}
+                        >
+                            <ArrowForward sx={{ color: "white", fontSize: "1.5rem" }} />
+                        </Button>
                     )}
                 </Box>
             </Backdrop>
