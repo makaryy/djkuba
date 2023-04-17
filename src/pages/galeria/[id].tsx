@@ -8,6 +8,7 @@ import { Backdrop, Box, Button } from "@mui/material";
 import { ArrowForward, ArrowBack, Close } from "@mui/icons-material/";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDisplayedImage } from "@/utils/hooks";
+import { useEffect } from "react";
 
 interface Props {
     currentPhoto: IImage;
@@ -54,7 +55,7 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
                     sx={{
                         maxHeight: "100vh",
                         maxWidth: "100vw",
-                        aspectRatio: currentPhoto.aspectRatio,
+                        aspectRatio: "3/2",
                         position: "absolute",
                         display: "flex",
                         justifyContent: "center",
@@ -63,6 +64,13 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
                 >
                     <AnimatePresence mode="popLayout" initial={false}>
                         <motion.div
+                            style={{
+                                height: overMd ? "100%" : "auto",
+                                width: overMd ? "auto" : "100%",
+                                maxHeight: "100vh",
+                                maxWidth: "100vw",
+                                aspectRatio: currentPhoto.aspectRatio,
+                            }}
                             key={`photo${currentPhoto.id}`}
                             initial={{ x: lastViewedPhoto && lastViewedPhoto > currentPhoto.id ? -1000 : 1000, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
@@ -74,23 +82,11 @@ const DisplayedImage = ({ currentPhoto, lastId }: Props) => {
                                 width={currentPhoto.width}
                                 height={currentPhoto.height}
                                 priority={true}
-                                style={
-                                    overMd
-                                        ? {
-                                              height: "100%",
-                                              width: "auto",
-                                              maxHeight: "100vh",
-                                              maxWidth: "100vw",
-                                              aspectRatio: currentPhoto.aspectRatio,
-                                          }
-                                        : {
-                                              width: "100%",
-                                              height: "auto",
-                                              maxHeight: "100vh",
-                                              maxWidth: "100vw",
-                                              aspectRatio: currentPhoto.aspectRatio,
-                                          }
-                                }
+                                style={{
+                                    maxHeight: "100%",
+                                    maxWidth: "100%",
+                                    aspectRatio: currentPhoto.aspectRatio,
+                                }}
                             />
                         </motion.div>
                     </AnimatePresence>
