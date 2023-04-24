@@ -56,7 +56,7 @@ function About() {
                                         flexDirection: "row",
                                         justifyContent: "space-between",
                                         alignItems: "stretch",
-                                        background: "linear-gradient(90deg, #60F451, #00E083, #00C7B1, #00ACD4, #008FE5, #006EDF)",
+                                        background: "linear-gradient(270deg, #100B9A, #004DD0, #0079EB, #00A0EC, #00C4D9)",
                                         padding: "1rem",
                                         borderRadius: "1rem",
                                         height: "600px",
@@ -71,7 +71,7 @@ function About() {
                                             width: "100%",
                                             height: "100%",
                                             filter: "blur(15px)",
-                                            background: "linear-gradient(90deg, #60F451, #00E083, #00C7B1, #00ACD4, #008FE5, #006EDF)",
+                                            background: "linear-gradient(270deg, #100B9A, #004DD0, #0079EB, #00A0EC, #00C4D9)",
                                             zIndex: 1,
                                         }}
                                     ></span>
@@ -173,7 +173,7 @@ function About() {
                                         flexDirection: "column",
                                         justifyContent: "center",
                                         alignItems: "stretch",
-                                        background: "linear-gradient(90deg, #60F451, #00E083, #00C7B1, #00ACD4, #008FE5, #006EDF)",
+                                        background: "linear-gradient(270deg, #100B9A, #004DD0, #0079EB, #00A0EC, #00C4D9)",
                                         padding: ".5rem",
                                         borderRadius: ".5rem",
                                         height: "auto",
@@ -188,7 +188,7 @@ function About() {
                                             width: "100%",
                                             height: "100%",
                                             filter: "blur(15px)",
-                                            background: "linear-gradient(90deg, #60F451, #00E083, #00C7B1, #00ACD4, #008FE5, #006EDF)",
+                                            background: "linear-gradient(270deg, #100B9A, #004DD0, #0079EB, #00A0EC, #00C4D9)",
                                             zIndex: 1,
                                         }}
                                     ></span>
