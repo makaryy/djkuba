@@ -8,6 +8,8 @@ const aboutSrc2 = "/djkuba-about02.webp";
 
 function About() {
     const overMd = useMediaQuery(theme.breakpoints.up("md"));
+    const overSm = useMediaQuery(theme.breakpoints.up("sm"));
+    const fontSize = overSm ? "1.25rem" : "1rem";
 
     return (
         <>
@@ -193,7 +195,7 @@ function About() {
                                             borderRadius: ".5rem .5rem 0 0 ",
                                             zIndex: 2
                                         }}>
-                                        <Typography sx={{ width: "400px" }} align={"center"}>
+                                        <Typography sx={{ fontSize, maxWidth: "400px" }} align={"center"}>
                                             Cześć. Mam na imię Kuba i jestem muzykiem oraz djem z wieloletnim doświadczeniem. Przygodę z muzyką
                                             rozpocząłem w 2010 r. Ukończyłem szkołę muzyczną 1 stopnia z wieloma osiągnięciami. Jestem zrzeszonym djem
                                             w DJ Promotion. Od wielu lat zajmuję się profesjonalnym prowadzeniem imprez okolicznościowych. Na koncie
@@ -218,7 +220,7 @@ function About() {
                                             borderRadius: "0 0 .5rem .5rem",
                                             zIndex: 2
                                         }}>
-                                        <Typography sx={{ width: "400px" }} align={"center"}>
+                                        <Typography sx={{ fontSize, maxWidth: "400px" }} align={"center"}>
                                             Do każdego klienta podchodzę indywidualnie z najwyższym zaangażowaniem oraz profesjonalnym podejściem.
                                             Wybierając mnie na swoją imprezę gwarantuję Ci wyjątkową oprawę muzyczną, zadowolenie gości, niezapomniany
                                             klimat oraz niesamowitą atmosferę, którą zapamiętasz na długie lata. Niezwykle ważny jest odpowiedni dobór
